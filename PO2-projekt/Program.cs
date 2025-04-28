@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using PO2_projekt.Data;
 using PO2_projekt;
-using PO2_projekt.Data;
 
 namespace LibraryManager
 {
