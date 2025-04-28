@@ -7,17 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9db61e04-f0ff-4a06-8d95-dabefefe2002" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PO2-projekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO2-projekt/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Author.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Author.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/BookAuthor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/BookAuthor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Books.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Book.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Borrowing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Borrowing.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Category.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Reader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Reader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Reservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Reservation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PO2-projekt/PO2-projekt.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/PO2-projekt.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="9db61e04-f0ff-4a06-8d95-dabefefe2002" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745864701613</updated>
       <workItem from="1745864702689" duration="2055000" />
-      <workItem from="1745867739696" duration="1075000" />
+      <workItem from="1745867739696" duration="1407000" />
     </task>
     <servers />
   </component>
