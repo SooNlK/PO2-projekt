@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PO2_projekt.Models;
 
-public class Books
+public class Book
 {
     public int Id { get; set; }
 
@@ -13,7 +14,7 @@ public class Books
 
     public int YearPublished { get; set; }
 
-    public int Copies { get; set; } = 1
+    public int Copies { get; set; } = 1;
 
     public int? CategoryId { get; set; }
     public Category? Category { get; set; }

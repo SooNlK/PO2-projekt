@@ -7,7 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9db61e04-f0ff-4a06-8d95-dabefefe2002" name="Changes" comment="" />
+    <list default="true" id="9db61e04-f0ff-4a06-8d95-dabefefe2002" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PO2-projekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PO2-projekt/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Author.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Author.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/BookAuthor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/BookAuthor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Books.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Book.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Borrowing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Borrowing.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Category.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Reader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Reader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/Models/Reservation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/Models/Reservation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PO2-projekt/PO2-projekt.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PO2-projekt/PO2-projekt.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,25 +37,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.PO2-projekt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/krzysztof/Desktop/programowanie obiektowe/PO2-projekt&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.PO2-projekt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/krzysztof/Desktop/programowanie obiektowe/PO2-projekt",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;GitIgnore&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "GitIgnore"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="PO2-projekt" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -75,6 +86,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745864701613</updated>
       <workItem from="1745864702689" duration="2055000" />
+      <workItem from="1745867739696" duration="1075000" />
     </task>
     <servers />
   </component>

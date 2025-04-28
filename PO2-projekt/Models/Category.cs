@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PO2_projekt.Models;
+namespace PO2_projekt.Models
 
 {
     public class Category
@@ -12,6 +13,6 @@ namespace PO2_projekt.Models;
         [MaxLength(255)]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<Book> Books { get; set; } = new List<Book>();
+        public ICollection<Book> Book { get; set; } = new List<Book>();
     }
 }

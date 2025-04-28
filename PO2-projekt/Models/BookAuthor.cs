@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace PO2_projekt.Models;
+namespace PO2_projekt.Models
 
 {
     public class BookAuthor
