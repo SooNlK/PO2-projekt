@@ -33,4 +33,29 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\Images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Images\logo.png" />
+      <AvaloniaResource Include="Assets\Images\logo.png" />
+      <None Remove="Assets\Images\people.png" />
+      <AvaloniaResource Include="Assets\Images\people.png" />
+      <None Remove="Assets\Images\books.png" />
+      <AvaloniaResource Include="Assets\Images\books.png" />
+      <None Remove="Assets\Images\chart.png" />
+      <AvaloniaResource Include="Assets\Images\chart.png" />
+      <None Remove="Assets\Images\document.png" />
+      <AvaloniaResource Include="Assets\Images\document.png" />
+      <None Remove="Assets\Images\search.png" />
+      <AvaloniaResource Include="Assets\Images\search.png" />
+    </ItemGroup>
 </Project>

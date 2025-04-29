@@ -3,7 +3,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="1920" Height="1080"
         x:Class="PO2_projekt.MainWindow"
         Title="PO2_projekt">
-    Welcome to Avalonia!
+    <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *">
+        <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Spacing="12">
+                    <Image Source="Assets/Images/logo.png" Width="190" Margin="0,0,0,20"></Image>
+                    
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/chart.png" Width="50" Height="50" />
+                            <TextBlock Text="Dashboard" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
+                            <Image Source="Assets/Images/books.png" Width="50" Height="50" />
+                            <TextBlock Text="Add Items" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/people.png" Width="50" Height="50" />
+                            <TextBlock Text="Add Member" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/search.png" Width="50" Height="50" />
+                            <TextBlock Text="Search" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/document.png" Width="50" Height="50" />
+                            <TextBlock Text="Reports" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>
