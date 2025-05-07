@@ -14,31 +14,43 @@
                     
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/chart.png" Width="50" Height="50" />
+                            <Image Source="Assets/Images/chart.png" Width="40" Height="40" />
                             <TextBlock Text="Dashboard" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
-                            <Image Source="Assets/Images/books.png" Width="50" Height="50" />
+                            <Image Source="Assets/Images/books.png" Width="40" Height="40" />
                             <TextBlock Text="Add Items" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/people.png" Width="50" Height="50" />
+                            <Image Source="Assets/Images/people.png" Width="40" Height="40" />
                             <TextBlock Text="Add Member" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/search.png" Width="50" Height="50" />
+                            <Image Source="Assets/Images/borrow.png" Width="40" Height="40" />
+                            <TextBlock Text="Borrow" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/return.png" Width="40" Height="40" />
+                            <TextBlock Text="Return" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
+                            <Image Source="Assets/Images/search.png" Width="40" Height="40" />
                             <TextBlock Text="Search" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/document.png" Width="50" Height="50" />
+                            <Image Source="Assets/Images/document.png" Width="40" Height="40" />
                             <TextBlock Text="Reports" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
