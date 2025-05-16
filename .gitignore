@@ -401,3 +401,4 @@ FodyWeavers.xsd
 
 # macOS .DS_Store file
 .DS_Store
+.idea/
