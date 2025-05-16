@@ -10,7 +10,7 @@
         x:DataType="vm:MainViewModel"
         Title="PO2_projekt">
     
-    <Window.DataContext><vm:MainViewModel></vm:MainViewModel></Window.DataContext>
+    <!-- <Window.DataContext><vm:MainViewModel></vm:MainViewModel></Window.DataContext> -->
     
     <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *">
         
@@ -40,7 +40,7 @@
                             <TextBlock Text="Add Member" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding BorrowIsActive}" Command="{Binding GoToBorrowrCommand}">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding BorrowIsActive}" Command="{Binding GoToBorrowCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
                             <Image Source="/Assets/Images/borrow.png" Width="40" Height="40" />
                             <TextBlock Text="Borrow" HorizontalAlignment="Center" />

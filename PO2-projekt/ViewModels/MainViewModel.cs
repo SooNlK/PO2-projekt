@@ -1,10 +1,14 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PO2_projekt.Data;
+using PO2_projekt.Factories;
 
 namespace PO2_projekt.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    private PageFactory _pageFactory;
+    
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HomeIsActive))]
     [NotifyPropertyChangedFor(nameof(AddItemIsActive))]
@@ -13,47 +17,41 @@ public partial class MainViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(ReturnIsActive))]
     [NotifyPropertyChangedFor(nameof(SearchIsActive))]
     [NotifyPropertyChangedFor(nameof(ReportsIsActive))]
-    private ViewModelBase _currentPage;
+    private PageViewModel _currentPage;
     
-    public bool HomeIsActive => CurrentPage == _dashboardPage;
-    public bool AddItemIsActive => CurrentPage == _addItemPage;
-    public bool AddMemberIsActive => CurrentPage == _addMemberPage;
-    public bool BorrowIsActive => CurrentPage == _borrowPage;
-    public bool ReturnIsActive => CurrentPage == _returnPage;
-    public bool SearchIsActive => CurrentPage == _searchPage;
-    public bool ReportsIsActive => CurrentPage == _reportsPage;
-    
-    private readonly DashboardViewModel _dashboardPage = new ();
-    private readonly AddItemViewModel _addItemPage = new ();
-    private readonly AddItemViewModel _addMemberPage = new ();
-    private readonly AddItemViewModel _borrowPage = new ();
-    private readonly AddItemViewModel _returnPage = new ();
-    private readonly AddItemViewModel _searchPage = new ();
-    private readonly AddItemViewModel _reportsPage = new ();
+    public bool HomeIsActive => CurrentPage.PageName == ApplicationPageNames.Dashboard;
+    public bool AddItemIsActive => CurrentPage.PageName == ApplicationPageNames.AddItem;
+    public bool AddMemberIsActive => CurrentPage.PageName == ApplicationPageNames.AddMember;
+    public bool BorrowIsActive => CurrentPage.PageName == ApplicationPageNames.Borrow;
+    public bool ReturnIsActive => CurrentPage.PageName == ApplicationPageNames.Return;
+    public bool SearchIsActive => CurrentPage.PageName == ApplicationPageNames.Search;
+    public bool ReportsIsActive => CurrentPage.PageName == ApplicationPageNames.Reports;
 
-    public MainViewModel()
+    public MainViewModel(PageFactory pageFactory)
     {
-        CurrentPage = _dashboardPage;
+        _pageFactory = pageFactory;
+        
+        GoToHome();
     }
 
     [RelayCommand]
-    private void GoToHome() => CurrentPage = _dashboardPage;
+    private void GoToHome() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Dashboard);
     
     [RelayCommand]
-    private void GoToAddItem() => CurrentPage = _addItemPage;
+    private void GoToAddItem() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.AddItem);
     
     [RelayCommand]
-    private void GoToAddMember() => CurrentPage = _addMemberPage;
+    private void GoToAddMember() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.AddMember);
     
     [RelayCommand]
-    private void GoToBorrowr() => CurrentPage = _borrowPage;
+    private void GoToBorrow() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Borrow);
     
     [RelayCommand]
-    private void GoToReturn() => CurrentPage = _returnPage;
+    private void GoToReturn() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Return);
     
     [RelayCommand]
-    private void GoToSearch() => CurrentPage = _searchPage;
+    private void GoToSearch() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Search);
     
     [RelayCommand]
-    private void GoToReports() => CurrentPage = _reportsPage;
+    private void GoToReports() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Reports);
 }
