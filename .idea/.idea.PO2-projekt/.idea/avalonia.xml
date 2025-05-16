@@ -3,7 +3,18 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="PO2-projekt/App.axaml" value="PO2-projekt/PO2-projekt.csproj" />
         <entry key="PO2-projekt/MainWindow.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Styles/AppDefaultStyles.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/AddItemView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/AddMember.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/Borrow.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/DashboardView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/MainView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/ReportsView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/ReturnView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/SearchView.axaml" value="PO2-projekt/PO2-projekt.csproj" />
+        <entry key="PO2-projekt/Views/UserControl1.axaml" value="PO2-projekt/PO2-projekt.csproj" />
       </map>
     </option>
   </component>

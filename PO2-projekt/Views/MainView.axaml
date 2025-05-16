@@ -4,53 +4,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         Width="1920" Height="1080"
-        x:Class="PO2_projekt.MainWindow"
+        x:Class="PO2_projekt.MainView"
+        xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+        xmlns:view="clr-namespace:PO2_projekt.Views"
+        x:DataType="vm:MainViewModel"
         Title="PO2_projekt">
+    
+    <Window.DataContext><vm:MainViewModel></vm:MainViewModel></Window.DataContext>
+    
     <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *">
+        
+        <ContentControl Grid.Column="1" Content="{Binding CurrentPage}"/>
+
+        
         <Border Padding="20" Background="{DynamicResource PrimaryBackgroundGradient}">
             <Grid RowDefinitions="*, Auto">
                 <StackPanel Spacing="12">
-                    <Image Source="Assets/Images/logo.png" Width="190" Margin="0,0,0,20"></Image>
+                    <Image Source="/Assets/Images/logo.png" Width="190" Margin="0,0,0,20"></Image>
                     
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding HomeIsActive}" Command="{Binding GoToHomeCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/chart.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/chart.png" Width="40" Height="40" />
                             <TextBlock Text="Dashboard" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding AddItemIsActive}" Command="{Binding GoToAddItemCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
-                            <Image Source="Assets/Images/books.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/books.png" Width="40" Height="40" />
                             <TextBlock Text="Add Items" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding AddMemberIsActive}" Command="{Binding GoToAddMemberCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/people.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/people.png" Width="40" Height="40" />
                             <TextBlock Text="Add Member" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding BorrowIsActive}" Command="{Binding GoToBorrowrCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/borrow.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/borrow.png" Width="40" Height="40" />
                             <TextBlock Text="Borrow" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding ReturnIsActive}" Command="{Binding GoToReturnCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/return.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/return.png" Width="40" Height="40" />
                             <TextBlock Text="Return" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding SearchIsActive}" Command="{Binding GoToSearchCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/search.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/search.png" Width="40" Height="40" />
                             <TextBlock Text="Search" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch">
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding ReportsIsActive}" Command="{Binding GoToReportsCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="Assets/Images/document.png" Width="40" Height="40" />
+                            <Image Source="/Assets/Images/document.png" Width="40" Height="40" />
                             <TextBlock Text="Reports" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
