@@ -4,4 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PO2_projekt.Views.DashboardView">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="40">
+        <!-- Nagłówek -->
+        <TextBlock Text="Witaj w systemie biblioteki!" FontSize="32" FontWeight="Bold" Foreground="#151E3E"/>
+        
+        <!-- Statystyki -->
+        <StackPanel Orientation="Horizontal" Spacing="32" Margin="0,32,0,32" Grid.Row="1">
+            <Border Background="#151E3E" CornerRadius="16" Padding="24" Width="200" Height="120">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Liczba książek" Foreground="White" FontSize="16"/>
+                    <TextBlock Text="123" Foreground="#FFD700" FontSize="36" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#151E3E" CornerRadius="16" Padding="24" Width="200" Height="120">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Liczba członków" Foreground="White" FontSize="16"/>
+                    <TextBlock Text="45" Foreground="#FFD700" FontSize="36" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#151E3E" CornerRadius="16" Padding="24" Width="200" Height="120">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Wypożyczenia" Foreground="White" FontSize="16"/>
+                    <TextBlock Text="12" Foreground="#FFD700" FontSize="36" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Szybki dostęp -->
+        <StackPanel Orientation="Horizontal" Spacing="24" Grid.Row="2">
+            <Button Width="180" Height="60" Background="#6633dd" Foreground="White" FontSize="18" Content="Dodaj książkę"/>
+            <Button Width="180" Height="60" Background="#6633dd" Foreground="White" FontSize="18" Content="Dodaj członka"/>
+            <Button Width="180" Height="60" Background="#6633dd" Foreground="White" FontSize="18" Content="Raporty"/>
+        </StackPanel>
+    </Grid>
 </UserControl>

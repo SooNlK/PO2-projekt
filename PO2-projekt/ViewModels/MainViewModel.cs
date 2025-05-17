@@ -26,7 +26,7 @@ public partial class MainViewModel : ViewModelBase
     public bool ReturnIsActive => CurrentPage.PageName == ApplicationPageNames.Return;
     public bool SearchIsActive => CurrentPage.PageName == ApplicationPageNames.Search;
     public bool ReportsIsActive => CurrentPage.PageName == ApplicationPageNames.Reports;
-
+    
     public MainViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;
