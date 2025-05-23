@@ -23,7 +23,7 @@ public class Reader
     
     public string? Country { get; set; }
     
-    public DateTime CreateAt { get; set; } = DateTime.Now;
+    public DateTime CreateAt { get; set; } = DateTime.UtcNow;
     
     // Relacje
     public ICollection<Borrowing> Borrowings { get; set; } = new List<Borrowing>();

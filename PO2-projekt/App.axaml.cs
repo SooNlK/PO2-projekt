@@ -2,10 +2,12 @@ using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PO2_projekt.Data;
 using PO2_projekt.Factories;
 using PO2_projekt.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace PO2_projekt;
 
@@ -20,6 +22,14 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var collection = new ServiceCollection();
+        
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+        collection.AddDbContext<LibraryDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        
         collection.AddSingleton<MainViewModel>();
         collection.AddTransient<DashboardViewModel>();
         collection.AddTransient<AddItemViewModel>();

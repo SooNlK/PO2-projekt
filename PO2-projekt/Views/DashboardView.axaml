@@ -2,8 +2,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PO2_projekt.Views.DashboardView">
+             xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="PO2_projekt.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600">
     
-    
+    <Grid Margin="40">
+        <TextBlock Text="Dashboard" FontSize="32" FontWeight="Bold" Margin="0,0,0,30"/>
+        <StackPanel Orientation="Horizontal" Spacing="40" Margin="0,50,0,0" HorizontalAlignment="Center">
+            <!-- Blok: Dzień -->
+            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
+                <StackPanel>
+                    <TextBlock Text="Dzisiaj" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
+                    <lvc:PieChart Series="{Binding TodayBorrowingsSeries}" Height="120"/>
+                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                    <lvc:CartesianChart Series="{Binding TodayNewReadersColumnSeries}" Height="120"/>
+                </StackPanel>
+            </Border>
+            <!-- Blok: Miesiąc -->
+            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
+                <StackPanel>
+                    <TextBlock Text="Ten miesiąc" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
+                    <lvc:PieChart Series="{Binding MonthBorrowingsSeries}" Height="120"/>
+                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                    <lvc:CartesianChart Series="{Binding MonthNewReadersColumnSeries}" Height="120"/>
+                </StackPanel>
+            </Border>
+            <!-- Blok: Rok -->
+            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
+                <StackPanel>
+                    <TextBlock Text="Ten rok" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
+                    <lvc:PieChart Series="{Binding YearBorrowingsSeries}" Height="120"/>
+                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                    <lvc:CartesianChart Series="{Binding YearNewReadersColumnSeries}" Height="120"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
 </UserControl>
