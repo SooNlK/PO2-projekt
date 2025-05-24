@@ -2,6 +2,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+             xmlns:global="clr-namespace:"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PO2_projekt.Views.AddItemView">
+             x:Class="PO2_projekt.Views.AddItemView"
+             x:DataType="vm:AddItemViewModel">
+
+    <UserControl.Resources>
+        <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
+    </UserControl.Resources>
+
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <!-- Formularz -->
+        <StackPanel Spacing="5">
+            <!-- Tytuł -->
+            <TextBox Watermark="Tytuł"
+                     Text="{Binding SelectedBook.Title, Mode=TwoWay}"
+                     Classes="FormField" />
+            <TextBlock Foreground="Red" FontSize="12"
+                       Text="{Binding TitleError}"
+                       IsVisible="{Binding TitleError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <!-- Rok wydania -->
+            <TextBox Watermark="Rok wydania"
+                     Text="{Binding SelectedBook.YearPublished, Mode=TwoWay}"
+                     Classes="FormField" />
+            <TextBlock Foreground="Red" FontSize="12"
+                       Text="{Binding YearPublishedError}"
+                       IsVisible="{Binding YearPublishedError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <!-- Liczba kopii -->
+            <TextBox Watermark="Liczba kopii"
+                     Text="{Binding SelectedBook.Copies, Mode=TwoWay}"
+                     Classes="FormField" />
+            <TextBlock Foreground="Red" FontSize="12"
+                       Text="{Binding CopiesError}"
+                       IsVisible="{Binding CopiesError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <ComboBox ItemsSource="{Binding Categories}"
+                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                      PlaceholderText="Wybierz kategorię"
+                      Classes="FormField">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
+                <Button Content="Dodaj" Command="{Binding AddBookCommand}" />
+                <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" />
+                <Button Content="Usuń" Command="{Binding DeleteBookCommand}" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Lista książek -->
+        <ListBox Grid.Row="1" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="{Binding Title}" Width="200" />
+                        <TextBlock Text="{Binding YearPublished}" Width="100" />
+                        <TextBlock Text="{Binding Copies}" Width="50" />
+                        <TextBlock Text="{Binding Category.Name}" Width="150" />
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </UserControl>
