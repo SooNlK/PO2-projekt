@@ -16,6 +16,8 @@ public class Author
     [MaxLength(255)]
     public string LastName { get; set; } = string.Empty;
 
+    public string FullName => $"{FirstName} {LastName}";
+
     // Relacje
     public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
 }

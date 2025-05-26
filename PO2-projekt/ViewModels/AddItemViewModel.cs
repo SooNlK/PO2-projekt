@@ -24,6 +24,8 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         Books = new ObservableCollection<Book>();
         Categories = new ObservableCollection<Category>();
         SelectedBook = new Book();
+        Authors = new ObservableCollection<Author>();
+        SelectedAuthors = new ObservableCollection<Author>();
     }
 
     [ObservableProperty] private Book _selectedBook;
@@ -32,6 +34,11 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
 
     public ObservableCollection<Book> Books { get; }
     public ObservableCollection<Category> Categories { get; }
+    public ObservableCollection<Author> Authors { get; } = new();
+    public ObservableCollection<Author> SelectedAuthors { get; set; } = new();
+
+    [ObservableProperty] private string _newAuthorFirstName;
+    [ObservableProperty] private string _newAuthorLastName;
 
     [RelayCommand]
     private async Task LoadBooksAsync()
@@ -64,6 +71,14 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         }
     }
 
+    [RelayCommand]
+    private async Task LoadAuthorsAsync()
+    {
+        var authors = await _context.Authors.AsNoTracking().ToListAsync();
+        Authors.Clear();
+        foreach (var author in authors)
+            Authors.Add(author);
+    }
 
     partial void OnSelectedBookChanged(Book? oldValue, Book? newValue)
     {
@@ -77,13 +92,11 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         }
     }
 
-
     partial void OnSelectedCategoryChanged(Category? oldValue, Category? newValue)
     {
         if (SelectedBook != null)
         {
             SelectedBook.CategoryId = newValue?.Id;
-            SelectedBook.Category = newValue;
         }
     }
 
@@ -92,32 +105,37 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     {
         Validate();
         if (HasErrors) return;
-
-        if (SelectedBook.Id != 0)
-        {
-            return;
-        }
-
+        if (SelectedBook.Id != 0) return;
+        SelectedBook.CategoryId = SelectedCategory?.Id ?? 0;
+        SelectedBook.BookAuthors = SelectedAuthors.Select(a => new BookAuthor { AuthorId = a.Id, Book = SelectedBook }).ToList();
         _context.Books.Add(SelectedBook);
         await _context.SaveChangesAsync();
         Books.Add(SelectedBook);
-
         SelectedBook = new Book();
-// Ustaw domyślną kategorię po dodaniu książki
+        SelectedAuthors.Clear();
         if (Categories.Any())
             SelectedCategory = Categories.First();
     }
-
 
     [RelayCommand]
     private async Task UpdateBookAsync()
     {
         Validate();
         if (HasErrors || SelectedBook?.Id == 0) return;
-
-        _context.Books.Update(SelectedBook);
-        await _context.SaveChangesAsync();
-        await LoadBooksAsync();
+        SelectedBook.CategoryId = SelectedCategory?.Id ?? 0;
+        var book = await _context.Books.Include(b => b.BookAuthors).FirstOrDefaultAsync(b => b.Id == SelectedBook.Id);
+        if (book != null)
+        {
+            book.Title = SelectedBook.Title;
+            book.YearPublished = SelectedBook.YearPublished;
+            book.Copies = SelectedBook.Copies;
+            book.CategoryId = SelectedBook.CategoryId;
+            book.BookAuthors.Clear();
+            foreach (var author in SelectedAuthors)
+                book.BookAuthors.Add(new BookAuthor { BookId = book.Id, AuthorId = author.Id });
+            await _context.SaveChangesAsync();
+            await LoadBooksAsync();
+        }
     }
 
     [RelayCommand]
@@ -129,6 +147,32 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         await _context.SaveChangesAsync();
         Books.Remove(SelectedBook);
         SelectedBook = new Book();
+    }
+
+    [RelayCommand]
+    private async Task AddAuthorAsync()
+    {
+        if (string.IsNullOrWhiteSpace(NewAuthorFirstName) || string.IsNullOrWhiteSpace(NewAuthorLastName))
+            return;
+        // Sprawdź, czy autor już istnieje
+        var existing = Authors.FirstOrDefault(a =>
+            a.FirstName.Equals(NewAuthorFirstName, StringComparison.OrdinalIgnoreCase) &&
+            a.LastName.Equals(NewAuthorLastName, StringComparison.OrdinalIgnoreCase));
+        if (existing != null)
+        {
+            if (!SelectedAuthors.Contains(existing))
+                SelectedAuthors.Add(existing);
+            NewAuthorFirstName = string.Empty;
+            NewAuthorLastName = string.Empty;
+            return;
+        }
+        var author = new Author { FirstName = NewAuthorFirstName, LastName = NewAuthorLastName };
+        _context.Authors.Add(author);
+        await _context.SaveChangesAsync();
+        Authors.Add(author);
+        SelectedAuthors.Add(author);
+        NewAuthorFirstName = string.Empty;
+        NewAuthorLastName = string.Empty;
     }
 
     #region Walidacja
@@ -196,5 +240,6 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     {
         await LoadBooksAsync();
         await LoadCategoriesAsync();
+        await LoadAuthorsAsync();
     }
 }

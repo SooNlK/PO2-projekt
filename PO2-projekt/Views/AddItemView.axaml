@@ -50,6 +50,26 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
+            <!-- MultiSelect ListBox do wyboru autorów -->
+            <ListBox ItemsSource="{Binding Authors}"
+                     SelectionMode="Multiple"
+                     SelectedItems="{Binding SelectedAuthors, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding FullName}" Width="200" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Pola do dodania nowego autora -->
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBox Watermark="Imię autora" Text="{Binding NewAuthorFirstName, Mode=TwoWay}" Width="120" />
+                <TextBox Watermark="Nazwisko autora" Text="{Binding NewAuthorLastName, Mode=TwoWay}" Width="120" />
+                <Button Content="Dodaj autora" Command="{Binding AddAuthorCommand}" />
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
                 <Button Content="Dodaj" Command="{Binding AddBookCommand}" />
                 <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" />

@@ -12,8 +12,8 @@ using PO2_projekt.Data;
 namespace PO2projekt.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20250517100949_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250526082821_AddBookAuthorsRelation")]
+    partial class AddBookAuthorsRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace PO2projekt.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BookId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -45,7 +48,23 @@ namespace PO2projekt.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookId");
+
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Adam",
+                            LastName = "Mickiewicz"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Henryk",
+                            LastName = "Sienkiewicz"
+                        });
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.Book", b =>
@@ -75,6 +94,24 @@ namespace PO2projekt.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Copies = 5,
+                            Title = "Pan Tadeusz",
+                            YearPublished = 1834
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Copies = 3,
+                            Title = "Quo Vadis",
+                            YearPublished = 1896
+                        });
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.BookAuthor", b =>
@@ -90,6 +127,18 @@ namespace PO2projekt.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("BookAuthors");
+
+                    b.HasData(
+                        new
+                        {
+                            BookId = 1,
+                            AuthorId = 1
+                        },
+                        new
+                        {
+                            BookId = 2,
+                            AuthorId = 2
+                        });
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.Borrowing", b =>
@@ -140,6 +189,23 @@ namespace PO2projekt.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Poezja"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Powieść"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Fantastyka"
+                        });
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.Reader", b =>
@@ -174,6 +240,26 @@ namespace PO2projekt.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Readers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Country = "Polska",
+                            CreateAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "jan.kowalski@example.com",
+                            FirstName = "Jan",
+                            LastName = "Kowalski"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Country = "Polska",
+                            CreateAt = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "anna.nowak@example.com",
+                            FirstName = "Anna",
+                            LastName = "Nowak"
+                        });
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.Reservation", b =>
@@ -203,6 +289,13 @@ namespace PO2projekt.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("PO2_projekt.Models.Author", b =>
+                {
+                    b.HasOne("PO2_projekt.Models.Book", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("BookId");
                 });
 
             modelBuilder.Entity("PO2_projekt.Models.Book", b =>
@@ -278,6 +371,8 @@ namespace PO2projekt.Migrations
 
             modelBuilder.Entity("PO2_projekt.Models.Book", b =>
                 {
+                    b.Navigation("Authors");
+
                     b.Navigation("BookAuthors");
 
                     b.Navigation("Borrowings");

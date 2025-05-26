@@ -12,8 +12,8 @@ using PO2_projekt.Data;
 namespace PO2projekt.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20250517102333_SeedInitialData")]
-    partial class SeedInitialData
+    [Migration("20250526090209_Update")]
+    partial class Update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

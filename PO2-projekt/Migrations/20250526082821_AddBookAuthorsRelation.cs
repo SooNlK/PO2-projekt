@@ -4,28 +4,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace PO2projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddBookAuthorsRelation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Authors",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Authors", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -78,27 +66,23 @@ namespace PO2projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookAuthors",
+                name: "Authors",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "integer", nullable: false),
-                    AuthorId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    BookId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookAuthors", x => new { x.BookId, x.AuthorId });
+                    table.PrimaryKey("PK_Authors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookAuthors_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookAuthors_Books_BookId",
+                        name: "FK_Authors_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -158,6 +142,81 @@ namespace PO2projekt.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookAuthors",
+                columns: table => new
+                {
+                    BookId = table.Column<int>(type: "integer", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookAuthors", x => new { x.BookId, x.AuthorId });
+                    table.ForeignKey(
+                        name: "FK_BookAuthors_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookAuthors_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "BookId", "FirstName", "LastName" },
+                values: new object[,]
+                {
+                    { 1, null, "Adam", "Mickiewicz" },
+                    { 2, null, "Henryk", "Sienkiewicz" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Poezja" },
+                    { 2, "Powieść" },
+                    { 3, "Fantastyka" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Readers",
+                columns: new[] { "Id", "Country", "CreateAt", "Email", "FirstName", "LastName" },
+                values: new object[,]
+                {
+                    { 1, "Polska", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "jan.kowalski@example.com", "Jan", "Kowalski" },
+                    { 2, "Polska", new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc), "anna.nowak@example.com", "Anna", "Nowak" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "CategoryId", "Copies", "Title", "YearPublished" },
+                values: new object[,]
+                {
+                    { 1, 1, 5, "Pan Tadeusz", 1834 },
+                    { 2, 2, 3, "Quo Vadis", 1896 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BookAuthors",
+                columns: new[] { "AuthorId", "BookId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Authors_BookId",
+                table: "Authors",
+                column: "BookId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_BookAuthors_AuthorId",
                 table: "BookAuthors",
@@ -205,10 +264,10 @@ namespace PO2projekt.Migrations
                 name: "Authors");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Readers");
 
             migrationBuilder.DropTable(
-                name: "Readers");
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Categories");
