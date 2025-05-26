@@ -2,7 +2,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+             xmlns:global="clr-namespace:"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PO2_projekt.Views.AddMemberView">
-    Welcome to Avalonia!
+             x:Class="PO2_projekt.Views.AddMemberView"
+             x:DataType="vm:AddMemberViewModel">
+    <UserControl.Resources>
+        <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
+    </UserControl.Resources>
+    
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <StackPanel Spacing="5">
+            <TextBox Watermark="Imię" Text="{Binding SelectedReader.FirstName, Mode=TwoWay}" />
+            <TextBlock Foreground="Red" FontSize="12" Text="{Binding FirstNameError}" IsVisible="{Binding FirstNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <TextBox Watermark="Nazwisko" Text="{Binding SelectedReader.LastName, Mode=TwoWay}" />
+            <TextBlock Foreground="Red" FontSize="12" Text="{Binding LastNameError}" IsVisible="{Binding LastNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <TextBox Watermark="Email" Text="{Binding SelectedReader.Email, Mode=TwoWay}" />
+            <TextBlock Foreground="Red" FontSize="12" Text="{Binding EmailError}" IsVisible="{Binding EmailError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <TextBox Watermark="Kraj" Text="{Binding SelectedReader.Country, Mode=TwoWay}" />
+
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
+                <Button Content="Dodaj" Command="{Binding AddReaderCommand}" />
+                <Button Content="Aktualizuj" Command="{Binding UpdateReaderCommand}" />
+                <Button Content="Usuń" Command="{Binding DeleteReaderCommand}" />
+            </StackPanel>
+        </StackPanel>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Readers}" SelectedItem="{Binding SelectedReader}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="{Binding FirstName}" Width="120" />
+                        <TextBlock Text="{Binding LastName}" Width="120" />
+                        <TextBlock Text="{Binding Email}" Width="200" />
+                        <TextBlock Text="{Binding Country}" Width="120" />
+                        <TextBlock Text="{Binding CreateAt, StringFormat='yyyy-MM-dd'}" Width="100" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </UserControl>

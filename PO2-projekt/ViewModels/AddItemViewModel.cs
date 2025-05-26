@@ -24,8 +24,6 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         Books = new ObservableCollection<Book>();
         Categories = new ObservableCollection<Category>();
         SelectedBook = new Book();
-        _ = LoadBooksAsync();
-        _ = LoadCategoriesAsync();
     }
 
     [ObservableProperty] private Book _selectedBook;
@@ -54,8 +52,6 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         var categories = await _context.Categories
             .AsNoTracking()
             .ToListAsync();
-
-        Categories.Add(new Category { Id = 999, Name = "Testowa kategoria" });
 
         Categories.Clear();
         foreach (var category in categories)
@@ -195,4 +191,10 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         : string.Empty;
 
     #endregion
+
+    public async Task InitializeAsync()
+    {
+        await LoadBooksAsync();
+        await LoadCategoriesAsync();
+    }
 }

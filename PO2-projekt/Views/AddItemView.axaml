@@ -38,7 +38,7 @@
             <TextBlock Foreground="Red" FontSize="12"
                        Text="{Binding CopiesError}"
                        IsVisible="{Binding CopiesError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
-
+            
             <ComboBox ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                       PlaceholderText="Wybierz kategorię"

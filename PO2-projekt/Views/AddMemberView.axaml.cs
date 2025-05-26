@@ -9,5 +9,12 @@ public partial class AddMemberView : UserControl
     public AddMemberView()
     {
         InitializeComponent();
+        this.AttachedToVisualTree += async (s, e) =>
+        {
+            if (DataContext is PO2_projekt.ViewModels.AddMemberViewModel vm)
+            {
+                await vm.InitializeAsync();
+            }
+        };
     }
 }

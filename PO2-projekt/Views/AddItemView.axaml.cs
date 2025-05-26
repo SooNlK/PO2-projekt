@@ -9,5 +9,12 @@ public partial class AddItemView : UserControl
     public AddItemView()
     {
         InitializeComponent();
+        this.AttachedToVisualTree += async (s, e) =>
+        {
+            if (DataContext is PO2_projekt.ViewModels.AddItemViewModel vm)
+            {
+                await vm.InitializeAsync();
+            }
+        };
     }
 }
