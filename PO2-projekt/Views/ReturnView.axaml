@@ -2,7 +2,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+             xmlns:global="clr-namespace:"
+             xmlns:conv="clr-namespace:PO2_projekt.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PO2_projekt.Views.ReturnView">
-    Welcome to Avalonia!
+             x:Class="PO2_projekt.Views.ReturnView"
+             x:DataType="vm:ReturnViewModel">
+    
+    <UserControl.Resources>
+        <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
+        <conv:NullToBoolConverter x:Key="NullToBoolConverter" />
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        <StackPanel>
+            <ListBox ItemsSource="{Binding ActiveBorrowings}" SelectedItem="{Binding SelectedBorrowing}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding Book.Title}" Width="200"/>
+                            <TextBlock Text="{Binding User.FullName}" Width="200"/>
+                            <TextBlock Text="{Binding BorrowDate, StringFormat='yyyy-MM-dd'}" Width="120"/>
+                            <TextBlock Text="{Binding ReturnDate, StringFormat='yyyy-MM-dd'}" Width="120"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Zwróć" Command="{Binding ReturnBookCommand}" IsEnabled="{Binding SelectedBorrowing, Converter={StaticResource NullToBoolConverter}}" />
+        </StackPanel>
+    </Grid>
 </UserControl>

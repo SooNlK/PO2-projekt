@@ -22,6 +22,7 @@ public partial class AddMemberViewModel : PageViewModel, INotifyDataErrorInfo
         _context = context;
         Readers = new ObservableCollection<Reader>();
         SelectedReader = new Reader();
+        PageName = ApplicationPageNames.AddMember;
     }
 
     public ObservableCollection<Reader> Readers { get; }

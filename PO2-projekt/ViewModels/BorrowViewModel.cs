@@ -24,6 +24,7 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         Books = new ObservableCollection<Book>();
         Readers = new ObservableCollection<Reader>();
         SelectedBorrowing = new Borrowing { BorrowDate = DateTime.Now };
+        PageName = ApplicationPageNames.Borrow;
     }
 
     public ObservableCollection<Borrowing> Borrowings { get; }

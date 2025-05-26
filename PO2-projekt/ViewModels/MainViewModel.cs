@@ -50,7 +50,13 @@ public partial class MainViewModel : ViewModelBase
     private void GoToReturn() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Return);
     
     [RelayCommand]
-    private void GoToSearch() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Search);
+    private async void GoToSearch()
+    {
+        var vm = _pageFactory.GetPageViewModel(ApplicationPageNames.Search);
+        if (vm is SearchViewModel svm)
+            await svm.InitializeAsync();
+        CurrentPage = vm;
+    }
     
     [RelayCommand]
     private void GoToReports() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Reports);

@@ -9,5 +9,12 @@ public partial class ReturnView : UserControl
     public ReturnView()
     {
         InitializeComponent();
+        this.AttachedToVisualTree += async (s, e) =>
+        {
+            if (DataContext is PO2_projekt.ViewModels.ReturnViewModel vm)
+            {
+                await vm.InitializeAsync();
+            }
+        };
     }
 }

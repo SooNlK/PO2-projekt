@@ -26,6 +26,7 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         SelectedBook = new Book();
         Authors = new ObservableCollection<Author>();
         SelectedAuthors = new ObservableCollection<Author>();
+        PageName = ApplicationPageNames.AddItem;
     }
 
     [ObservableProperty] private Book _selectedBook;
@@ -142,11 +143,14 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     private async Task DeleteBookAsync()
     {
         if (SelectedBook?.Id == 0) return;
-
-        _context.Books.Remove(SelectedBook);
-        await _context.SaveChangesAsync();
-        Books.Remove(SelectedBook);
-        SelectedBook = new Book();
+        var book = await _context.Books.FindAsync(SelectedBook.Id);
+        if (book != null)
+        {
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            Books.Remove(SelectedBook);
+            SelectedBook = new Book();
+        }
     }
 
     [RelayCommand]
