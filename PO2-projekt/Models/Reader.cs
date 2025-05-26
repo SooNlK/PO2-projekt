@@ -28,5 +28,5 @@ public class Reader
     // Relacje
     public ICollection<Borrowing> Borrowings { get; set; } = new List<Borrowing>();
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
-    
+    public string FullName => $"{FirstName} {LastName}";
 }

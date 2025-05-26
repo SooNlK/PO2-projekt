@@ -2,7 +2,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
+             xmlns:conv="clr-namespace:PO2_projekt.Converters"
+             xmlns:global="clr-namespace:"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PO2_projekt.Views.BorrowView">
-    Welcome to Avalonia!
+             x:Class="PO2_projekt.Views.BorrowView"
+             x:DataType="vm:BorrowViewModel">
+    <UserControl.Resources>
+        <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
+        <conv:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter" />
+    </UserControl.Resources>
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <StackPanel Spacing="5">
+            <ComboBox ItemsSource="{Binding Books}"
+                      SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
+                      PlaceholderText="Wybierz książkę">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Foreground="Red" FontSize="12" Text="{Binding BookError}" IsVisible="{Binding BookError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <ComboBox ItemsSource="{Binding Readers}"
+                      SelectedItem="{Binding SelectedReader, Mode=TwoWay}"
+                      PlaceholderText="Wybierz użytkownika">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Foreground="Red" FontSize="12" Text="{Binding ReaderError}" IsVisible="{Binding ReaderError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <DatePicker SelectedDate="{Binding SelectedBorrowing.ReturnDate, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" />
+
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
+                <Button Content="Dodaj" Command="{Binding AddBorrowingCommand}" />
+                <Button Content="Aktualizuj" Command="{Binding UpdateBorrowingCommand}" />
+                <Button Content="Usuń" Command="{Binding DeleteBorrowingCommand}" />
+            </StackPanel>
+        </StackPanel>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Borrowings}" SelectedItem="{Binding SelectedBorrowing}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock Text="{Binding Book.Title}" Width="200" />
+                        <TextBlock Width="200">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="User.FirstName"/>
+                                    <Binding Path="User.LastName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="{Binding BorrowDate, StringFormat='yyyy-MM-dd'}" Width="120" />
+                        <TextBlock Text="{Binding ReturnDate, StringFormat='yyyy-MM-dd'}" Width="120" />
+                        <TextBlock Text="{Binding Returned}" Width="80" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
 </UserControl>
