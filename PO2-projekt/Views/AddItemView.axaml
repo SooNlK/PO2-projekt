@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PO2_projekt.ViewModels"
              xmlns:global="clr-namespace:"
+             xmlns:conv="clr-namespace:PO2_projekt.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PO2_projekt.Views.AddItemView"
              x:DataType="vm:AddItemViewModel">
 
     <UserControl.Resources>
         <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
+        <conv:AuthorsToStringConverter x:Key="AuthorsToStringConverter" />
     </UserControl.Resources>
 
     <Grid RowDefinitions="Auto,*" Margin="10">
@@ -39,35 +41,46 @@
                        Text="{Binding CopiesError}"
                        IsVisible="{Binding CopiesError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
             
-            <ComboBox ItemsSource="{Binding Categories}"
-                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                      PlaceholderText="Wybierz kategorię"
-                      Classes="FormField">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <!-- Wyszukiwarka i lista kategorii w jednym wierszu -->
+            <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Left">
+                <TextBox Watermark="Szukaj kategorii..." Text="{Binding CategoryFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" />
+                <ComboBox ItemsSource="{Binding CategoriesFiltered}"
+                          SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                          PlaceholderText="Wybierz kategorię"
+                          Classes="FormField"
+                          Width="180"
+                          IsDropDownOpen="{Binding CategoryDropdownOpen, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <!-- Pole do dodania nowej kategorii pod ComboBoxem, wyrównane do lewej -->
+            <TextBox Watermark="Nowa kategoria" Text="{Binding NewCategoryName, Mode=TwoWay}" Width="180" Margin="0,0,0,5" HorizontalAlignment="Left" />
 
-            <!-- MultiSelect ListBox do wyboru autorów -->
-            <ListBox ItemsSource="{Binding Authors}"
-                     SelectionMode="Multiple"
-                     SelectedItems="{Binding SelectedAuthors, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="15">
-                            <TextBlock Text="{Binding FullName}" Width="200" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
+            <!-- Pole do filtrowania autorów i ComboBox w jednym wierszu -->
+            <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Left">
+                <TextBox Watermark="Szukaj autora..." Text="{Binding AuthorFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,5" />
+                <ComboBox x:Name="AuthorComboBox"
+                          ItemsSource="{Binding AuthorsFiltered}"
+                          SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}"
+                          PlaceholderText="Wybierz autora"
+                          Classes="FormField"
+                          Width="200"
+                          IsDropDownOpen="{Binding AuthorDropdownOpen, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
             <!-- Pola do dodania nowego autora -->
-            <StackPanel Orientation="Horizontal" Spacing="5">
+            <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,0,0,5">
                 <TextBox Watermark="Imię autora" Text="{Binding NewAuthorFirstName, Mode=TwoWay}" Width="120" />
                 <TextBox Watermark="Nazwisko autora" Text="{Binding NewAuthorLastName, Mode=TwoWay}" Width="120" />
-                <Button Content="Dodaj autora" Command="{Binding AddAuthorCommand}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
@@ -86,7 +99,7 @@
                         <TextBlock Text="{Binding YearPublished}" Width="100" />
                         <TextBlock Text="{Binding Copies}" Width="50" />
                         <TextBlock Text="{Binding Category.Name}" Width="150" />
-
+                        <TextBlock Text="{Binding BookAuthors, Converter={StaticResource AuthorsToStringConverter}}" Width="200" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
