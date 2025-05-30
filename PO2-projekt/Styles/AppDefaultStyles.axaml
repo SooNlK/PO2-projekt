@@ -23,4 +23,18 @@
     <Style Selector="Button.active /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource PrimaryActiveBackground}"></Setter>
     </Style>
+
+    <!-- Styl dla ListBox i ListBoxItem -->
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource ListBoxText}" />
+    </Style>
+    <Style Selector="ListBox ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundPoint}" />
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+    <Style Selector="ListBox ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundSelected}" /> 
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 </Styles>    

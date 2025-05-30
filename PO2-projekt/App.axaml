@@ -25,5 +25,10 @@
         <SolidColorBrush x:Key="PrimaryHoverBackground">#333B5A</SolidColorBrush>
         <SolidColorBrush x:Key="PrimaryActiveBackground">#6633dd</SolidColorBrush>
         <SolidColorBrush x:Key="PrimaryTextHover">White</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="ListBoxBackground">White</SolidColorBrush>
+        <SolidColorBrush x:Key="ListBoxBackgroundSelected">#6633dd</SolidColorBrush>
+        <SolidColorBrush x:Key="ListBoxText">#000000</SolidColorBrush>
+        <SolidColorBrush x:Key="ListBoxBackgroundPoint">#6633dd</SolidColorBrush>
     </Application.Resources>
 </Application>

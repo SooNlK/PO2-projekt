@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using PO2_projekt.ViewModels;
 
 namespace PO2_projekt.Models;
 

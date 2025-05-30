@@ -10,6 +10,13 @@ using PO2_projekt.Models;
 
 namespace PO2_projekt.ViewModels;
 
+public enum BookStatusFilter
+{
+    All,
+    Borrowed,
+    Available
+}
+
 public partial class SearchViewModel : PageViewModel
 {
     private readonly LibraryDbContext _context;
@@ -17,6 +24,7 @@ public partial class SearchViewModel : PageViewModel
     [ObservableProperty] private string _searchAuthor;
     [ObservableProperty] private Category _searchCategory;
     [ObservableProperty] private bool _onlyAvailable;
+    [ObservableProperty] private BookStatusFilter _bookStatus = BookStatusFilter.All;
     public ObservableCollection<Category> Categories { get; } = new();
     public ObservableCollection<Book> SearchResults { get; } = new();
 
@@ -47,6 +55,7 @@ public partial class SearchViewModel : PageViewModel
         var query = _context.Books
             .Include(b => b.Category)
             .Include(b => b.BookAuthors).ThenInclude(ba => ba.Author)
+            .Include(b => b.Borrowings)
             .AsNoTracking()
             .AsQueryable();
 
@@ -58,6 +67,10 @@ public partial class SearchViewModel : PageViewModel
             query = query.Where(b => b.CategoryId == SearchCategory.Id);
         if (OnlyAvailable)
             query = query.Where(b => b.Copies > 0);
+        if (BookStatus == BookStatusFilter.Borrowed)
+            query = query.Where(b => b.Borrowings.Any(br => !br.Returned));
+        else if (BookStatus == BookStatusFilter.Available)
+            query = query.Where(b => b.Borrowings.All(br => br.Returned) || !b.Borrowings.Any());
 
         var results = await query.ToListAsync();
         SearchResults.Clear();
@@ -72,6 +85,12 @@ public partial class SearchViewModel : PageViewModel
         SearchAuthor = string.Empty;
         SearchCategory = null;
         OnlyAvailable = false;
+        BookStatus = BookStatusFilter.All;
         await SearchAsync();
+    }
+
+    partial void OnBookStatusChanged(BookStatusFilter value)
+    {
+        SearchAsync().ConfigureAwait(false);
     }
 }
