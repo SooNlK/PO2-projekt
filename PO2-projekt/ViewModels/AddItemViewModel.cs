@@ -254,6 +254,13 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     private async Task DeleteBookAsync()
     {
         if (SelectedBook?.Id == 0) return;
+        var isBorrowed = await _context.Borrowings.AnyAsync(b => b.BookId == SelectedBook.Id && !b.Returned);
+        if (isBorrowed)
+        {
+            AddError(nameof(SelectedBook), "Nie można usunąć książki, która jest wypożyczona.");
+            OnErrorsChanged(nameof(SelectedBook));
+            return;
+        }
         var book = await _context.Books.FindAsync(SelectedBook.Id);
         if (book != null)
         {

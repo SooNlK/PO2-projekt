@@ -14,26 +14,34 @@
     </UserControl.Resources>
     <Grid RowDefinitions="Auto,*" Margin="10">
         <StackPanel Spacing="5">
-            <ComboBox ItemsSource="{Binding Books}"
-                      SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
-                      PlaceholderText="Wybierz książkę">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Title}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBox Watermark="Szukaj książki..." Text="{Binding BookFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" />
+                <ComboBox ItemsSource="{Binding BooksFiltered}"
+                          SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
+                          PlaceholderText="Wybierz książkę"
+                          IsDropDownOpen="{Binding BookDropdownOpen, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
             <TextBlock Foreground="Red" FontSize="12" Text="{Binding BookError}" IsVisible="{Binding BookError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
 
-            <ComboBox ItemsSource="{Binding Readers}"
-                      SelectedItem="{Binding SelectedReader, Mode=TwoWay}"
-                      PlaceholderText="Wybierz użytkownika">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding FullName}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBox Watermark="Szukaj użytkownika..." Text="{Binding ReaderFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" />
+                <ComboBox ItemsSource="{Binding ReadersFiltered}"
+                          SelectedItem="{Binding SelectedReader, Mode=TwoWay}"
+                          PlaceholderText="Wybierz użytkownika"
+                          IsDropDownOpen="{Binding ReaderDropdownOpen, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
             <TextBlock Foreground="Red" FontSize="12" Text="{Binding ReaderError}" IsVisible="{Binding ReaderError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
 
             <DatePicker SelectedDate="{Binding SelectedBorrowing.ReturnDate, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" />

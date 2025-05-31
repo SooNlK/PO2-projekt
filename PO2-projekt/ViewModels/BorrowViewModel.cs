@@ -34,6 +34,12 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
     [ObservableProperty] private Borrowing _selectedBorrowing;
     [ObservableProperty] private Book _selectedBook;
     [ObservableProperty] private Reader _selectedReader;
+    [ObservableProperty] private string _bookFilter;
+    [ObservableProperty] private string _readerFilter;
+    public ObservableCollection<Book> BooksFiltered { get; } = new();
+    public ObservableCollection<Reader> ReadersFiltered { get; } = new();
+    [ObservableProperty] private bool _readerDropdownOpen;
+    [ObservableProperty] private bool _bookDropdownOpen;
 
     [RelayCommand]
     private async Task LoadBorrowingsAsync()
@@ -55,6 +61,7 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         Books.Clear();
         foreach (var b in books)
             Books.Add(b);
+        UpdateBooksFiltered();
     }
 
     [RelayCommand]
@@ -64,6 +71,7 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         Readers.Clear();
         foreach (var r in readers)
             Readers.Add(r);
+        UpdateReadersFiltered();
     }
 
     [RelayCommand]
@@ -164,6 +172,40 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         {
             SelectedBook = null;
             SelectedReader = null;
+        }
+    }
+
+    partial void OnReaderFilterChanged(string value)
+    {
+        UpdateReadersFiltered();
+        ReaderDropdownOpen = !string.IsNullOrWhiteSpace(value) && ReadersFiltered.Count > 0;
+    }
+
+    private void UpdateReadersFiltered()
+    {
+        ReadersFiltered.Clear();
+        var filter = ReaderFilter?.ToLower() ?? string.Empty;
+        foreach (var reader in Readers)
+        {
+            if (string.IsNullOrWhiteSpace(filter) || reader.FullName.ToLower().Contains(filter))
+                ReadersFiltered.Add(reader);
+        }
+    }
+
+    partial void OnBookFilterChanged(string value)
+    {
+        UpdateBooksFiltered();
+        BookDropdownOpen = !string.IsNullOrWhiteSpace(value) && BooksFiltered.Count > 0;
+    }
+
+    private void UpdateBooksFiltered()
+    {
+        BooksFiltered.Clear();
+        var filter = BookFilter?.ToLower() ?? string.Empty;
+        foreach (var book in Books)
+        {
+            if (string.IsNullOrWhiteSpace(filter) || book.Title.ToLower().Contains(filter))
+                BooksFiltered.Add(book);
         }
     }
 }
