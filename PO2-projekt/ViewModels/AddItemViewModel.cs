@@ -157,7 +157,7 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
             UpdateAuthorsFiltered();
         }
 
-        if (SelectedCategory == null && !string.IsNullOrWhiteSpace(NewCategoryName))
+        if (!string.IsNullOrWhiteSpace(NewCategoryName))
         {
             var existing = Categories.FirstOrDefault(c => c.Name.Equals(NewCategoryName, StringComparison.OrdinalIgnoreCase));
             if (existing != null)
@@ -325,6 +325,16 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     {
         _errors.Clear();
 
+        if (SelectedBook == null)
+        {
+            AddError(nameof(SelectedBook), "Brak wybranej książki");
+            OnErrorsChanged(nameof(SelectedBook));
+            OnPropertyChanged(nameof(TitleError));
+            OnPropertyChanged(nameof(YearPublishedError));
+            OnPropertyChanged(nameof(CopiesError));
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(SelectedBook.Title))
             AddError(nameof(SelectedBook.Title), "Tytuł jest wymagany");
 
@@ -406,5 +416,16 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
             if (string.IsNullOrWhiteSpace(filter) || category.Name.ToLower().Contains(filter))
                 CategoriesFiltered.Add(category);
         }
+    }
+
+    [RelayCommand]
+    private void NewBook()
+    {
+        SelectedBook = new Book();
+        SelectedAuthor = null;
+        SelectedCategory = null;
+        NewAuthorFirstName = string.Empty;
+        NewAuthorLastName = string.Empty;
+        NewCategoryName = string.Empty;
     }
 }

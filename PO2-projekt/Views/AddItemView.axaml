@@ -87,6 +87,7 @@
                 <Button Content="Dodaj" Command="{Binding AddBookCommand}" />
                 <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" />
                 <Button Content="Usuń" Command="{Binding DeleteBookCommand}" />
+                <Button Content="Nowa książka" Command="{Binding NewBookCommand}" />
             </StackPanel>
         </StackPanel>
 
