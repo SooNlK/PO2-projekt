@@ -12,18 +12,33 @@
     <UserControl.Resources>
         <global:StringNotEmptyToBoolConverter x:Key="StringNotEmptyToBoolConverter" />
         <conv:NullToBoolConverter x:Key="NullToBoolConverter" />
+        <conv:OverdueToColorConverter x:Key="OverdueToColorConverter" />
     </UserControl.Resources>
     
     <Grid Margin="10">
         <StackPanel>
-            <ListBox ItemsSource="{Binding ActiveBorrowings}" SelectedItem="{Binding SelectedBorrowing}">
+            <!-- WYSZUKIWARKA I FILTRY -->
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,10">
+                <TextBox Width="200" Watermark="Szukaj książki lub czytelnika..." Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox Width="160" ItemsSource="{Binding ReturnDateFilters}" SelectedItem="{Binding SelectedReturnDateFilter}" />
+                <ComboBox Width="160" ItemsSource="{Binding UserFilters}" SelectedItem="{Binding SelectedUserFilter}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <!-- LISTA Z KOLOROWANIEM I DNIAMI OPÓŹNIENIA -->
+            <ListBox ItemsSource="{Binding ActiveBorrowingsFiltered}" SelectedItem="{Binding SelectedBorrowing}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="15">
-                            <TextBlock Text="{Binding Book.Title}" Width="200"/>
-                            <TextBlock Text="{Binding User.FullName}" Width="200"/>
+                        <StackPanel Orientation="Horizontal" Spacing="15" Background="{Binding IsOverdue, Converter={StaticResource OverdueToColorConverter}}">
+                            <TextBlock Text="{Binding BookTitle}" Width="200"/>
+                            <TextBlock Text="{Binding UserFullName}" Width="200"/>
                             <TextBlock Text="{Binding BorrowDate, StringFormat='yyyy-MM-dd'}" Width="120"/>
                             <TextBlock Text="{Binding ReturnDate, StringFormat='yyyy-MM-dd'}" Width="120"/>
+                            <TextBlock Text="{Binding DaysLateText}" Foreground="Red" Width="80"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

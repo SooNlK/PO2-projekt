@@ -30,5 +30,7 @@
         <SolidColorBrush x:Key="ListBoxBackgroundSelected">#6633dd</SolidColorBrush>
         <SolidColorBrush x:Key="ListBoxText">#000000</SolidColorBrush>
         <SolidColorBrush x:Key="ListBoxBackgroundPoint">#6633dd</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="AddItemButton">#6633dd</SolidColorBrush>
     </Application.Resources>
 </Application>

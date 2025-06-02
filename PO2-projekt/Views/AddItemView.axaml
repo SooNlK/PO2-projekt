@@ -43,7 +43,7 @@
             
             <!-- Wyszukiwarka i lista kategorii w jednym wierszu -->
             <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Left">
-                <TextBox Watermark="Szukaj kategorii..." Text="{Binding CategoryFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" />
+                <TextBox Watermark="Szukaj kategorii..." Text="{Binding CategoryFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" Classes="FormField" />
                 <ComboBox ItemsSource="{Binding CategoriesFiltered}"
                           SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                           PlaceholderText="Wybierz kategorię"
@@ -58,11 +58,11 @@
                 </ComboBox>
             </StackPanel>
             <!-- Pole do dodania nowej kategorii pod ComboBoxem, wyrównane do lewej -->
-            <TextBox Watermark="Nowa kategoria" Text="{Binding NewCategoryName, Mode=TwoWay}" Width="180" Margin="0,0,0,5" HorizontalAlignment="Left" />
+            <TextBox Watermark="Nowa kategoria" Text="{Binding NewCategoryName, Mode=TwoWay}" Width="180" Margin="0,0,0,5" HorizontalAlignment="Left" Classes="FormField" />
 
             <!-- Pole do filtrowania autorów i ComboBox w jednym wierszu -->
             <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Left">
-                <TextBox Watermark="Szukaj autora..." Text="{Binding AuthorFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,5" />
+                <TextBox Watermark="Szukaj autora..." Text="{Binding AuthorFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,5" Classes="FormField" />
                 <ComboBox x:Name="AuthorComboBox"
                           ItemsSource="{Binding AuthorsFiltered}"
                           SelectedItem="{Binding SelectedAuthor, Mode=TwoWay}"
@@ -79,15 +79,15 @@
             </StackPanel>
             <!-- Pola do dodania nowego autora -->
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,0,0,5">
-                <TextBox Watermark="Imię autora" Text="{Binding NewAuthorFirstName, Mode=TwoWay}" Width="120" />
-                <TextBox Watermark="Nazwisko autora" Text="{Binding NewAuthorLastName, Mode=TwoWay}" Width="120" />
+                <TextBox Watermark="Imię autora" Text="{Binding NewAuthorFirstName, Mode=TwoWay}" Width="120" Classes="FormField" />
+                <TextBox Watermark="Nazwisko autora" Text="{Binding NewAuthorLastName, Mode=TwoWay}" Width="120" Classes="FormField" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
-                <Button Content="Dodaj" Command="{Binding AddBookCommand}" />
-                <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" />
-                <Button Content="Usuń" Command="{Binding DeleteBookCommand}" />
-                <Button Content="Nowa książka" Command="{Binding NewBookCommand}" />
+                <Button Content="Dodaj" Command="{Binding AddBookCommand}" Background="{DynamicResource AddItemButton}"/>
+                <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" Background="{DynamicResource AddItemButton}"/>
+                <Button Content="Usuń" Command="{Binding DeleteBookCommand}" Background="{DynamicResource AddItemButton}"/>
+                <Button Content="Nowa książka" Command="{Binding NewBookCommand}" Background="{DynamicResource AddItemButton}"/>
             </StackPanel>
         </StackPanel>
 

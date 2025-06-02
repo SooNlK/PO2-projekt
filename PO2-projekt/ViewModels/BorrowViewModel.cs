@@ -103,8 +103,13 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         {
             borrowing.BookId = SelectedBook?.Id ?? 0;
             borrowing.UserId = SelectedReader?.Id ?? 0;
-            borrowing.BorrowDate = SelectedBorrowing.BorrowDate;
-            borrowing.ReturnDate = SelectedBorrowing.ReturnDate;
+            borrowing.BorrowDate = SelectedBorrowing.BorrowDate.Kind == DateTimeKind.Utc
+                ? SelectedBorrowing.BorrowDate
+                : DateTime.SpecifyKind(SelectedBorrowing.BorrowDate, DateTimeKind.Utc);
+            if (SelectedBorrowing.ReturnDate.HasValue)
+                borrowing.ReturnDate = DateTime.SpecifyKind(SelectedBorrowing.ReturnDate.Value, DateTimeKind.Utc);
+            else
+                borrowing.ReturnDate = null;
             await _context.SaveChangesAsync();
             await LoadBorrowingsAsync();
         }
