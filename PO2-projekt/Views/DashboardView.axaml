@@ -11,34 +11,55 @@
     <Grid Margin="40">
         <TextBlock Text="Dashboard" FontSize="32" FontWeight="Bold" Margin="0,0,0,30"/>
         <StackPanel Orientation="Horizontal" Spacing="40" Margin="0,50,0,0" HorizontalAlignment="Center">
-            <!-- Blok: Dzień -->
-            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
-                <StackPanel>
-                    <TextBlock Text="Dzisiaj" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
-                    <lvc:PieChart Series="{Binding TodayBorrowingsSeries}" Height="120"/>
-                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-                    <lvc:CartesianChart Series="{Binding TodayNewReadersColumnSeries}" Height="120"/>
-                </StackPanel>
+            <!-- Panel 1: Najpopularniejsze kategorie -->
+            <Border Background="#FFEEEEEE" CornerRadius="16" Padding="20" Width="350" Height="520">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0" Text="Najpopularniejsze kategorie" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <Grid Grid.Row="1" VerticalAlignment="Center">
+                        <lvc:PieChart Series="{Binding TopCategoriesSeries}" Height="220"/>
+                    </Grid>
+                </Grid>
             </Border>
-            <!-- Blok: Miesiąc -->
-            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
-                <StackPanel>
-                    <TextBlock Text="Ten miesiąc" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
-                    <lvc:PieChart Series="{Binding MonthBorrowingsSeries}" Height="120"/>
-                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-                    <lvc:CartesianChart Series="{Binding MonthNewReadersColumnSeries}" Height="120"/>
-                </StackPanel>
+            <!-- Panel 2: Trend wypożyczeń -->
+            <Border Background="#FFEEEEEE" CornerRadius="16" Padding="20" Width="350" Height="520">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0" Text="Trend wypożyczeń (14 dni)" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <Grid Grid.Row="1" VerticalAlignment="Center">
+                        <lvc:CartesianChart Series="{Binding BorrowingsTrendSeries}" Height="220"/>
+                    </Grid>
+                </Grid>
             </Border>
-            <!-- Blok: Rok -->
-            <Border Background="#FFEEEEEE" CornerRadius="10" Padding="20" Width="320" Height="420">
+            <!-- Panel 3: Nowi czytelnicy + statystyki -->
+            <Border Background="#FFEEEEEE" CornerRadius="16" Padding="20" Width="350" Height="520">
                 <StackPanel>
-                    <TextBlock Text="Ten rok" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-                    <TextBlock Text="Wypożyczenia" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center"/>
-                    <lvc:PieChart Series="{Binding YearBorrowingsSeries}" Height="120"/>
-                    <TextBlock Text="Nowi czytelnicy" FontWeight="SemiBold" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-                    <lvc:CartesianChart Series="{Binding YearNewReadersColumnSeries}" Height="120"/>
+                    <TextBlock Text="Nowi czytelnicy (14 dni)" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <lvc:CartesianChart Series="{Binding NewReadersTrendSeries}" Height="120"/>
+                    <TextBlock Text="Najpopularniejsze książki" FontWeight="Bold" FontSize="16" Margin="0,20,0,10" />
+                    <ItemsControl ItemsSource="{Binding TopBooks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="{Binding Title}" Width="140" />
+                                    <TextBlock Text="{Binding Count}" FontWeight="Bold" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="Najaktywniejsi czytelnicy" FontWeight="Bold" FontSize="16" Margin="10,10,0,10" />
+                    <ItemsControl ItemsSource="{Binding TopReaders}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="{Binding Name}" Width="140" />
+                                    <TextBlock Text="{Binding Count}" FontWeight="Bold" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="Przeterminowane wypożyczenia" FontWeight="Bold" FontSize="16" Margin="10,10,0,0" />
+                    <TextBlock Text="{Binding OverdueCount}" FontSize="22" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Left" />
+                    <TextBlock Text="Do zwrotu w tym tygodniu" FontWeight="Bold" FontSize="16" Margin="10,10,0,0" />
+                    <TextBlock Text="{Binding DueThisWeekCount}" FontSize="22" Foreground="#6633dd" FontWeight="Bold" HorizontalAlignment="Left" />
                 </StackPanel>
             </Border>
         </StackPanel>
