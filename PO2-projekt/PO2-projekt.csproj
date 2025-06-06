@@ -60,7 +60,7 @@
       <None Remove="Assets\Images\document.png" />
       <AvaloniaResource Include="Assets\Images\document.png" />
       <None Remove="Assets\Images\search.png" />
-      <AvaloniaResource Include="Assets\Images\search.png" />
+      <!-- <AvaloniaResource Include="Assets\Images\search.png" /> -->
       <None Remove="Assets\Images\borrow.png" />
       <AvaloniaResource Include="Assets\Images\borrow.png" />
       <None Remove="Assets\Images\return.png" />

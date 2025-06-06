@@ -15,7 +15,6 @@ public partial class MainViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(AddMemberIsActive))]
     [NotifyPropertyChangedFor(nameof(BorrowIsActive))]
     [NotifyPropertyChangedFor(nameof(ReturnIsActive))]
-    [NotifyPropertyChangedFor(nameof(SearchIsActive))]
     private PageViewModel _currentPage;
     
     public bool HomeIsActive => CurrentPage.PageName == ApplicationPageNames.Dashboard;
@@ -23,7 +22,6 @@ public partial class MainViewModel : ViewModelBase
     public bool AddMemberIsActive => CurrentPage.PageName == ApplicationPageNames.AddMember;
     public bool BorrowIsActive => CurrentPage.PageName == ApplicationPageNames.Borrow;
     public bool ReturnIsActive => CurrentPage.PageName == ApplicationPageNames.Return;
-    public bool SearchIsActive => CurrentPage.PageName == ApplicationPageNames.Search;
     
     public MainViewModel(PageFactory pageFactory)
     {
@@ -46,13 +44,4 @@ public partial class MainViewModel : ViewModelBase
     
     [RelayCommand]
     private void GoToReturn() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Return);
-    
-    [RelayCommand]
-    private async void GoToSearch()
-    {
-        var vm = _pageFactory.GetPageViewModel(ApplicationPageNames.Search);
-        if (vm is SearchViewModel svm)
-            await svm.InitializeAsync();
-        CurrentPage = vm;
-    }
 }

@@ -7,6 +7,5 @@ public enum ApplicationPageNames
     AddItem,
     AddMember,
     Borrow,
-    Return,
-    Search
+    Return
 }

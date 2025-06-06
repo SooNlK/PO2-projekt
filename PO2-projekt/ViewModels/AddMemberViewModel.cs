@@ -119,9 +119,4 @@ public partial class AddMemberViewModel : PageViewModel, INotifyDataErrorInfo
     {
         await LoadReadersAsync();
     }
-
-    partial void OnSelectedReaderChanged(Reader? oldValue, Reader? newValue)
-    {
-        // Możesz dodać dodatkową logikę przy zmianie zaznaczonego czytelnika
-    }
 }

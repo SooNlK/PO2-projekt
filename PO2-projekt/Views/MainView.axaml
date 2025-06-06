@@ -31,31 +31,25 @@
                     <Button HorizontalAlignment="Stretch" Classes.active="{Binding AddItemIsActive}" Command="{Binding GoToAddItemCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
                             <Image Source="/Assets/Images/books.png" Width="40" Height="40" />
-                            <TextBlock Text="Add Items" HorizontalAlignment="Center" />
+                            <TextBlock Text="Dodaj książkę" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch" Classes.active="{Binding AddMemberIsActive}" Command="{Binding GoToAddMemberCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
                             <Image Source="/Assets/Images/people.png" Width="40" Height="40" />
-                            <TextBlock Text="Add Member" HorizontalAlignment="Center" />
+                            <TextBlock Text="Dodaj czytelnika" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch" Classes.active="{Binding BorrowIsActive}" Command="{Binding GoToBorrowCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
                             <Image Source="/Assets/Images/borrow.png" Width="40" Height="40" />
-                            <TextBlock Text="Borrow" HorizontalAlignment="Center" />
+                            <TextBlock Text="Wypożyczenia" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalAlignment="Stretch" Classes.active="{Binding ReturnIsActive}" Command="{Binding GoToReturnCommand}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
                             <Image Source="/Assets/Images/return.png" Width="40" Height="40" />
-                            <TextBlock Text="Return" HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </Button>
-                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding SearchIsActive}" Command="{Binding GoToSearchCommand}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="/Assets/Images/search.png" Width="40" Height="40" />
-                            <TextBlock Text="Search" HorizontalAlignment="Center" />
+                            <TextBlock Text="Zwroty" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

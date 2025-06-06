@@ -36,7 +36,6 @@ public partial class App : Application
         collection.AddTransient<AddMemberViewModel>();
         collection.AddTransient<BorrowViewModel>();
         collection.AddTransient<ReturnViewModel>();
-        collection.AddTransient<SearchViewModel>();
 
         collection.AddSingleton<Func<ApplicationPageNames, PageViewModel>>(x => name => name switch
         {
@@ -45,7 +44,6 @@ public partial class App : Application
             ApplicationPageNames.AddMember => x.GetService<AddMemberViewModel>(),
             ApplicationPageNames.Borrow => x.GetService<BorrowViewModel>(),
             ApplicationPageNames.Return => x.GetService<ReturnViewModel>(),
-            ApplicationPageNames.Search => x.GetService<SearchViewModel>(),
             _ => throw new InvalidOperationException(),
         });
         
