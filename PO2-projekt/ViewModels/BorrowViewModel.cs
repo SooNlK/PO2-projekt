@@ -83,14 +83,12 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         SelectedBorrowing.BookId = SelectedBook?.Id ?? 0;
         SelectedBorrowing.UserId = SelectedReader?.Id ?? 0;
         SelectedBorrowing.BorrowDate = DateTime.UtcNow;
-        if (!SelectedBorrowing.ReturnDate.HasValue)
-            SelectedBorrowing.ReturnDate = SelectedBorrowing.BorrowDate.AddMonths(2);
-        else
-            SelectedBorrowing.ReturnDate = DateTime.SpecifyKind(SelectedBorrowing.ReturnDate.Value, DateTimeKind.Utc);
+        SelectedBorrowing.DueDate = SelectedBorrowing.BorrowDate.AddMonths(2);
+        SelectedBorrowing.ReturnDate = null;
         _context.Borrowings.Add(SelectedBorrowing);
         await _context.SaveChangesAsync();
-        Borrowings.Add(SelectedBorrowing);
-        SelectedBorrowing = new Borrowing { BorrowDate = DateTime.Now, ReturnDate = DateTime.Now.AddMonths(2) };
+        await LoadBorrowingsAsync();
+        SelectedBorrowing = new Borrowing { BorrowDate = DateTime.Now, DueDate = DateTime.Now.AddMonths(2), ReturnDate = null };
     }
 
     [RelayCommand]
@@ -106,6 +104,7 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
             borrowing.BorrowDate = SelectedBorrowing.BorrowDate.Kind == DateTimeKind.Utc
                 ? SelectedBorrowing.BorrowDate
                 : DateTime.SpecifyKind(SelectedBorrowing.BorrowDate, DateTimeKind.Utc);
+            borrowing.DueDate = borrowing.BorrowDate.AddMonths(2);
             if (SelectedBorrowing.ReturnDate.HasValue)
                 borrowing.ReturnDate = DateTime.SpecifyKind(SelectedBorrowing.ReturnDate.Value, DateTimeKind.Utc);
             else
@@ -124,7 +123,7 @@ public partial class BorrowViewModel : PageViewModel, INotifyDataErrorInfo
         {
             _context.Borrowings.Remove(borrowing);
             await _context.SaveChangesAsync();
-            Borrowings.Remove(SelectedBorrowing);
+            await LoadBorrowingsAsync();
             SelectedBorrowing = new Borrowing { BorrowDate = DateTime.Now, ReturnDate = DateTime.Now.AddMonths(2) };
         }
     }

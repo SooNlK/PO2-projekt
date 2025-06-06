@@ -14,7 +14,7 @@ namespace PO2_projekt.Models
         public int BookId { get; set; }
         public Book Book { get; set; } = null!;
 
-        public DateTime ReservedAt { get; set; } = DateTime.Now;
+        public DateTime ReservedAt { get; set; }
 
         public DateTime? Expiration { get; set; }
     }

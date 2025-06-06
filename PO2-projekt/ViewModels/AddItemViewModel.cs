@@ -128,77 +128,34 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         }
     }
 
+    partial void OnSelectedAuthorChanged(Author? oldValue, Author? newValue)
+    {
+        if (newValue != null && !SelectedAuthors.Contains(newValue))
+            SelectedAuthors.Add(newValue);
+    }
+
     [RelayCommand]
     private async Task AddBookAsync()
     {
         Validate();
         if (HasErrors) return;
         if (SelectedBook.Id != 0) return;
-
-        if ((SelectedAuthor == null) && (!string.IsNullOrWhiteSpace(NewAuthorFirstName) && !string.IsNullOrWhiteSpace(NewAuthorLastName)))
-        {
-            var existing = Authors.FirstOrDefault(a =>
-                a.FirstName.Equals(NewAuthorFirstName, StringComparison.OrdinalIgnoreCase) &&
-                a.LastName.Equals(NewAuthorLastName, StringComparison.OrdinalIgnoreCase));
-            if (existing != null)
-            {
-                SelectedAuthor = existing;
-            }
-            else
-            {
-                var author = new Author { FirstName = NewAuthorFirstName, LastName = NewAuthorLastName };
-                _context.Authors.Add(author);
-                await _context.SaveChangesAsync();
-                Authors.Add(author);
-                SelectedAuthor = author;
-            }
-            NewAuthorFirstName = string.Empty;
-            NewAuthorLastName = string.Empty;
-            UpdateAuthorsFiltered();
-        }
-
-        if (!string.IsNullOrWhiteSpace(NewCategoryName))
-        {
-            var existing = Categories.FirstOrDefault(c => c.Name.Equals(NewCategoryName, StringComparison.OrdinalIgnoreCase));
-            if (existing != null)
-            {
-                SelectedCategory = existing;
-            }
-            else
-            {
-                var category = new Category { Name = NewCategoryName };
-                _context.Categories.Add(category);
-                await _context.SaveChangesAsync();
-                var addedCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == NewCategoryName);
-                if (addedCategory != null && !Categories.Any(c => c.Id == addedCategory.Id))
-                    Categories.Add(addedCategory);
-                SelectedCategory = addedCategory;
-            }
-            NewCategoryName = string.Empty;
-            CategoryFilter = string.Empty;
-            UpdateCategoriesFiltered();
-        }
-
-        if (SelectedAuthor == null)
-        {
-            AddError(nameof(SelectedAuthor), "Autor jest wymagany");
-            return;
-        }
-        if (SelectedCategory == null)
-        {
-            AddError(nameof(SelectedCategory), "Kategoria jest wymagana");
-            return;
-        }
-
-        SelectedBook.CategoryId = SelectedCategory?.Id ?? 0;
-        SelectedBook.BookAuthors = new List<BookAuthor> { new BookAuthor { AuthorId = SelectedAuthor.Id, Book = SelectedBook } };
         _context.Books.Add(SelectedBook);
         await _context.SaveChangesAsync();
-        Books.Add(SelectedBook);
+
+        // Dodaj powiązania BookAuthor
+        foreach (var author in SelectedAuthors)
+        {
+            _context.Set<PO2_projekt.Models.BookAuthor>().Add(new PO2_projekt.Models.BookAuthor
+            {
+                BookId = SelectedBook.Id,
+                AuthorId = author.Id
+            });
+        }
+        await _context.SaveChangesAsync();
+
+        await LoadBooksAsync();
         SelectedBook = new Book();
-        SelectedAuthor = null;
-        if (Categories.Any())
-            SelectedCategory = Categories.First();
     }
 
     [RelayCommand]
@@ -207,44 +164,26 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         Validate();
         if (HasErrors || SelectedBook?.Id == 0) return;
 
-        if (SelectedAuthor == null && !string.IsNullOrWhiteSpace(NewAuthorFirstName) && !string.IsNullOrWhiteSpace(NewAuthorLastName))
-        {
-            var existing = Authors.FirstOrDefault(a =>
-                a.FirstName.Equals(NewAuthorFirstName, StringComparison.OrdinalIgnoreCase) &&
-                a.LastName.Equals(NewAuthorLastName, StringComparison.OrdinalIgnoreCase));
-            if (existing != null)
-            {
-                SelectedAuthor = existing;
-            }
-            else
-            {
-                var author = new Author { FirstName = NewAuthorFirstName, LastName = NewAuthorLastName };
-                _context.Authors.Add(author);
-                await _context.SaveChangesAsync();
-                Authors.Add(author);
-                SelectedAuthor = author;
-            }
-            NewAuthorFirstName = string.Empty;
-            NewAuthorLastName = string.Empty;
-            UpdateAuthorsFiltered();
-        }
+        // Pobierz książkę z bazy wraz z powiązaniami
+        var book = await _context.Books
+            .Include(b => b.BookAuthors)
+            .FirstOrDefaultAsync(b => b.Id == SelectedBook.Id);
 
-        if (SelectedAuthor == null)
-        {
-            AddError(nameof(SelectedAuthor), "Autor jest wymagany");
-            return;
-        }
-
-        SelectedBook.CategoryId = SelectedCategory?.Id ?? 0;
-        var book = await _context.Books.Include(b => b.BookAuthors).FirstOrDefaultAsync(b => b.Id == SelectedBook.Id);
         if (book != null)
         {
+            // Zaktualizuj właściwości
             book.Title = SelectedBook.Title;
             book.YearPublished = SelectedBook.YearPublished;
             book.Copies = SelectedBook.Copies;
-            book.CategoryId = SelectedBook.CategoryId;
+            book.CategoryId = SelectedCategory?.Id;
+
+            // Zaktualizuj autorów
             book.BookAuthors.Clear();
-            book.BookAuthors.Add(new BookAuthor { BookId = book.Id, AuthorId = SelectedAuthor.Id });
+            foreach (var author in SelectedAuthors)
+            {
+                book.BookAuthors.Add(new PO2_projekt.Models.BookAuthor { BookId = book.Id, AuthorId = author.Id });
+            }
+
             await _context.SaveChangesAsync();
             await LoadBooksAsync();
         }
@@ -266,7 +205,7 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         {
             _context.Books.Remove(book);
             await _context.SaveChangesAsync();
-            Books.Remove(SelectedBook);
+            await LoadBooksAsync();
             SelectedBook = new Book();
         }
     }
@@ -339,6 +278,8 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
             OnPropertyChanged(nameof(TitleError));
             OnPropertyChanged(nameof(YearPublishedError));
             OnPropertyChanged(nameof(CopiesError));
+            OnPropertyChanged(nameof(AuthorError));
+            OnPropertyChanged(nameof(CategoryError));
             return;
         }
 
@@ -351,11 +292,18 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
         if (SelectedBook.Copies < 1)
             AddError(nameof(SelectedBook.Copies), "Liczba kopii musi być ≥ 1");
 
-        OnErrorsChanged(nameof(SelectedBook));
+        if (SelectedAuthors == null || SelectedAuthors.Count == 0)
+            AddError("Authors", "Wymagany jest co najmniej jeden autor");
 
+        if (SelectedCategory == null)
+            AddError("Category", "Kategoria jest wymagana");
+
+        OnErrorsChanged(nameof(SelectedBook));
         OnPropertyChanged(nameof(TitleError));
         OnPropertyChanged(nameof(YearPublishedError));
         OnPropertyChanged(nameof(CopiesError));
+        OnPropertyChanged(nameof(AuthorError));
+        OnPropertyChanged(nameof(CategoryError));
     }
 
     private void AddError(string propertyName, string error)
@@ -381,6 +329,9 @@ public partial class AddItemViewModel : PageViewModel, INotifyDataErrorInfo
     public string CopiesError => _errors.ContainsKey(nameof(SelectedBook.Copies))
         ? string.Join(", ", _errors[nameof(SelectedBook.Copies)])
         : string.Empty;
+
+    public string AuthorError => _errors.ContainsKey("Authors") ? string.Join(", ", _errors["Authors"]) : string.Empty;
+    public string CategoryError => _errors.ContainsKey("Category") ? string.Join(", ", _errors["Category"]) : string.Empty;
 
     #endregion
 

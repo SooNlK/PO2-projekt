@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PO2_projekt.Data;
@@ -11,9 +12,11 @@ using PO2_projekt.Data;
 namespace PO2projekt.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250606093909_Seed50")]
+    partial class Seed50
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -869,9 +872,6 @@ namespace PO2projekt.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -895,7 +895,6 @@ namespace PO2projekt.Migrations
                             Id = 1,
                             BookId = 1,
                             BorrowDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 1
                         },
@@ -904,7 +903,6 @@ namespace PO2projekt.Migrations
                             Id = 2,
                             BookId = 2,
                             BorrowDate = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 2
                         },
@@ -913,7 +911,6 @@ namespace PO2projekt.Migrations
                             Id = 3,
                             BookId = 3,
                             BorrowDate = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 3
                         },
@@ -922,7 +919,6 @@ namespace PO2projekt.Migrations
                             Id = 4,
                             BookId = 4,
                             BorrowDate = new DateTime(2024, 1, 4, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 4
                         },
@@ -931,7 +927,6 @@ namespace PO2projekt.Migrations
                             Id = 5,
                             BookId = 5,
                             BorrowDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 5
                         },
@@ -940,7 +935,6 @@ namespace PO2projekt.Migrations
                             Id = 6,
                             BookId = 6,
                             BorrowDate = new DateTime(2024, 1, 6, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 6
                         },
@@ -949,7 +943,6 @@ namespace PO2projekt.Migrations
                             Id = 7,
                             BookId = 7,
                             BorrowDate = new DateTime(2024, 1, 7, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 7
                         },
@@ -958,7 +951,6 @@ namespace PO2projekt.Migrations
                             Id = 8,
                             BookId = 8,
                             BorrowDate = new DateTime(2024, 1, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 8
                         },
@@ -967,7 +959,6 @@ namespace PO2projekt.Migrations
                             Id = 9,
                             BookId = 9,
                             BorrowDate = new DateTime(2024, 1, 9, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 9
                         },
@@ -976,7 +967,6 @@ namespace PO2projekt.Migrations
                             Id = 10,
                             BookId = 10,
                             BorrowDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 10
                         },
@@ -985,7 +975,6 @@ namespace PO2projekt.Migrations
                             Id = 11,
                             BookId = 11,
                             BorrowDate = new DateTime(2024, 1, 11, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 11
                         },
@@ -994,7 +983,6 @@ namespace PO2projekt.Migrations
                             Id = 12,
                             BookId = 12,
                             BorrowDate = new DateTime(2024, 1, 12, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 12
                         },
@@ -1003,7 +991,6 @@ namespace PO2projekt.Migrations
                             Id = 13,
                             BookId = 13,
                             BorrowDate = new DateTime(2024, 1, 13, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 13
                         },
@@ -1012,7 +999,6 @@ namespace PO2projekt.Migrations
                             Id = 14,
                             BookId = 14,
                             BorrowDate = new DateTime(2024, 1, 14, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 14
                         },
@@ -1021,7 +1007,6 @@ namespace PO2projekt.Migrations
                             Id = 15,
                             BookId = 15,
                             BorrowDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 15
                         },
@@ -1030,7 +1015,6 @@ namespace PO2projekt.Migrations
                             Id = 16,
                             BookId = 16,
                             BorrowDate = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 16
                         },
@@ -1039,7 +1023,6 @@ namespace PO2projekt.Migrations
                             Id = 17,
                             BookId = 17,
                             BorrowDate = new DateTime(2024, 1, 17, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 17
                         },
@@ -1048,7 +1031,6 @@ namespace PO2projekt.Migrations
                             Id = 18,
                             BookId = 18,
                             BorrowDate = new DateTime(2024, 1, 18, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 18
                         },
@@ -1057,7 +1039,6 @@ namespace PO2projekt.Migrations
                             Id = 19,
                             BookId = 19,
                             BorrowDate = new DateTime(2024, 1, 19, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 19
                         },
@@ -1066,7 +1047,6 @@ namespace PO2projekt.Migrations
                             Id = 20,
                             BookId = 20,
                             BorrowDate = new DateTime(2024, 1, 20, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 20
                         },
@@ -1075,7 +1055,6 @@ namespace PO2projekt.Migrations
                             Id = 21,
                             BookId = 21,
                             BorrowDate = new DateTime(2024, 1, 21, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 21
                         },
@@ -1084,7 +1063,6 @@ namespace PO2projekt.Migrations
                             Id = 22,
                             BookId = 22,
                             BorrowDate = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 22
                         },
@@ -1093,7 +1071,6 @@ namespace PO2projekt.Migrations
                             Id = 23,
                             BookId = 23,
                             BorrowDate = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 23
                         },
@@ -1102,7 +1079,6 @@ namespace PO2projekt.Migrations
                             Id = 24,
                             BookId = 24,
                             BorrowDate = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 24
                         },
@@ -1111,7 +1087,6 @@ namespace PO2projekt.Migrations
                             Id = 25,
                             BookId = 25,
                             BorrowDate = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 25
                         },
@@ -1120,7 +1095,6 @@ namespace PO2projekt.Migrations
                             Id = 26,
                             BookId = 26,
                             BorrowDate = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 26
                         },
@@ -1129,7 +1103,6 @@ namespace PO2projekt.Migrations
                             Id = 27,
                             BookId = 27,
                             BorrowDate = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 27
                         },
@@ -1138,7 +1111,6 @@ namespace PO2projekt.Migrations
                             Id = 28,
                             BookId = 28,
                             BorrowDate = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 28
                         },
@@ -1147,7 +1119,6 @@ namespace PO2projekt.Migrations
                             Id = 29,
                             BookId = 29,
                             BorrowDate = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 29
                         },
@@ -1156,7 +1127,6 @@ namespace PO2projekt.Migrations
                             Id = 30,
                             BookId = 30,
                             BorrowDate = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 30
                         },
@@ -1165,7 +1135,6 @@ namespace PO2projekt.Migrations
                             Id = 31,
                             BookId = 31,
                             BorrowDate = new DateTime(2024, 1, 31, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 31
                         },
@@ -1174,7 +1143,6 @@ namespace PO2projekt.Migrations
                             Id = 32,
                             BookId = 32,
                             BorrowDate = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 32
                         },
@@ -1183,7 +1151,6 @@ namespace PO2projekt.Migrations
                             Id = 33,
                             BookId = 33,
                             BorrowDate = new DateTime(2024, 2, 2, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 33
                         },
@@ -1192,7 +1159,6 @@ namespace PO2projekt.Migrations
                             Id = 34,
                             BookId = 34,
                             BorrowDate = new DateTime(2024, 2, 3, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 34
                         },
@@ -1201,7 +1167,6 @@ namespace PO2projekt.Migrations
                             Id = 35,
                             BookId = 35,
                             BorrowDate = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 35
                         },
@@ -1210,7 +1175,6 @@ namespace PO2projekt.Migrations
                             Id = 36,
                             BookId = 36,
                             BorrowDate = new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 36
                         },
@@ -1219,7 +1183,6 @@ namespace PO2projekt.Migrations
                             Id = 37,
                             BookId = 37,
                             BorrowDate = new DateTime(2024, 2, 6, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 37
                         },
@@ -1228,7 +1191,6 @@ namespace PO2projekt.Migrations
                             Id = 38,
                             BookId = 38,
                             BorrowDate = new DateTime(2024, 2, 7, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 38
                         },
@@ -1237,7 +1199,6 @@ namespace PO2projekt.Migrations
                             Id = 39,
                             BookId = 39,
                             BorrowDate = new DateTime(2024, 2, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 39
                         },
@@ -1246,7 +1207,6 @@ namespace PO2projekt.Migrations
                             Id = 40,
                             BookId = 40,
                             BorrowDate = new DateTime(2024, 2, 9, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Returned = false,
                             UserId = 40
                         });

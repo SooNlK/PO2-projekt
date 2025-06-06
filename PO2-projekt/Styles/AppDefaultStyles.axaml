@@ -15,7 +15,7 @@
         <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
     </Style>
     
-    <Style Selector="Button:pointeover /template/ ContentPresenter">
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextHover}"></Setter>
         <Setter Property="Background" Value="{DynamicResource PrimaryHoverBackground}"></Setter>
     </Style>
@@ -26,30 +26,29 @@
 
     <!-- Styl dla ListBox i ListBoxItem -->
     <Style Selector="ListBox">
-        <Setter Property="Background" Value="{DynamicResource ListBoxBackground}" />
-        <Setter Property="Foreground" Value="{DynamicResource ListBoxText}" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
     </Style>
     <Style Selector="ListBox ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundPoint}" />
         <Setter Property="Foreground" Value="Black" />
     </Style>
     <Style Selector="ListBox ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundSelected}" /> 
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundSelected}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
+    </Style>
+    
+    <Style Selector=".FormField TextBox, .FormField ComboBox, TextBox.FormField, ComboBox.FormField">
+        <Setter Property="Background" Value="{DynamicResource PrimaryStatBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderBrush}" />
+        <Setter Property="CornerRadius" Value="6" />
     </Style>
 
-    <!-- Styl dla pól formularza (TextBox, ComboBox) -->
-    <Style Selector=".FormField TextBox, .FormField ComboBox, TextBox.FormField, ComboBox.FormField">
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Background" Value="#F5F6FA" />
-        <Setter Property="BorderBrush" Value="#6633dd" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Padding" Value="8,4" />
-        <Setter Property="Foreground" Value="#222" />
-        <Setter Property="Margin" Value="0,2,0,2" />
+    <Style Selector="ComboBox">
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
     </Style>
-    <Style Selector="ComboBox.FormField:dropDown">
-        <Setter Property="Background" Value="#F5F6FA" />
-    </Style>
+
 </Styles>    

@@ -57,6 +57,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
+            <TextBlock Foreground="Red" FontSize="12"
+                       Text="{Binding CategoryError}"
+                       IsVisible="{Binding CategoryError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
             <!-- Pole do dodania nowej kategorii pod ComboBoxem, wyrównane do lewej -->
             <TextBox Watermark="Nowa kategoria" Text="{Binding NewCategoryName, Mode=TwoWay}" Width="180" Margin="0,0,0,5" HorizontalAlignment="Left" Classes="FormField" />
 
@@ -77,6 +80,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
+            <TextBlock Foreground="Red" FontSize="12"
+                       Text="{Binding AuthorError}"
+                       IsVisible="{Binding AuthorError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
             <!-- Pola do dodania nowego autora -->
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,0,0,5">
                 <TextBox Watermark="Imię autora" Text="{Binding NewAuthorFirstName, Mode=TwoWay}" Width="120" Classes="FormField" />
@@ -84,26 +90,35 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
-                <Button Content="Dodaj" Command="{Binding AddBookCommand}" Background="{DynamicResource AddItemButton}"/>
-                <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" Background="{DynamicResource AddItemButton}"/>
-                <Button Content="Usuń" Command="{Binding DeleteBookCommand}" Background="{DynamicResource AddItemButton}"/>
-                <Button Content="Nowa książka" Command="{Binding NewBookCommand}" Background="{DynamicResource AddItemButton}"/>
+                <Button Content="Dodaj" Command="{Binding AddBookCommand}" Background="{DynamicResource PrimaryButtonBackground}"/>
+                <Button Content="Aktualizuj" Command="{Binding UpdateBookCommand}" Background="{DynamicResource PrimaryButtonBackground}"/>
+                <Button Content="Usuń" Command="{Binding DeleteBookCommand}" Background="{DynamicResource PrimaryButtonBackground}"/>
+                <Button Content="Nowa książka" Command="{Binding NewBookCommand}" Background="{DynamicResource PrimaryButtonBackground}"/>
             </StackPanel>
         </StackPanel>
 
         <!-- Lista książek -->
-        <ListBox Grid.Row="1" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Spacing="15">
-                        <TextBlock Text="{Binding Title}" Width="200" />
-                        <TextBlock Text="{Binding YearPublished}" Width="100" />
-                        <TextBlock Text="{Binding Copies}" Width="50" />
-                        <TextBlock Text="{Binding Category.Name}" Width="150" />
-                        <TextBlock Text="{Binding BookAuthors, Converter={StaticResource AuthorsToStringConverter}}" Width="200" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,5">
+                <TextBlock Text="Tytuł" Width="200" FontWeight="Bold" />
+                <TextBlock Text="Rok" Width="100" FontWeight="Bold" />
+                <TextBlock Text="Kopie" Width="50" FontWeight="Bold" />
+                <TextBlock Text="Kategoria" Width="150" FontWeight="Bold" />
+                <TextBlock Text="Autorzy" Width="200" FontWeight="Bold" />
+            </StackPanel>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding Title}" Width="200" />
+                            <TextBlock Text="{Binding YearPublished}" Width="100" />
+                            <TextBlock Text="{Binding Copies}" Width="50" />
+                            <TextBlock Text="{Binding Category.Name}" Width="150" />
+                            <TextBlock Text="{Binding BookAuthors, Converter={StaticResource AuthorsToStringConverter}}" Width="200" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

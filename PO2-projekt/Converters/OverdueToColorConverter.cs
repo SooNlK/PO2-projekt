@@ -9,8 +9,16 @@ namespace PO2_projekt.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isOverdue && isOverdue)
-                return new SolidColorBrush(Colors.MistyRose); // lub Colors.LightCoral
+            // Obsługa MultiBinding z ConverterParameter
+            if (parameter is string param && param == "foreground")
+            {
+                if (value is bool isOverdue && isOverdue)
+                    return new SolidColorBrush(Colors.Black);
+                return new SolidColorBrush(Colors.White); // domyślny kolor tekstu
+            }
+            // Domyślnie tło
+            if (value is bool isOverdueBg && isOverdueBg)
+                return new SolidColorBrush(Colors.LightSkyBlue); // lub Colors.LightCoral
             return new SolidColorBrush(Colors.Transparent);
         }
 

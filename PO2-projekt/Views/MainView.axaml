@@ -58,12 +58,6 @@
                             <TextBlock Text="Search" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding ReportsIsActive}" Command="{Binding GoToReportsCommand}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="15">
-                            <Image Source="/Assets/Images/document.png" Width="40" Height="40" />
-                            <TextBlock Text="Reports" HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </Button>
                 </StackPanel>
             </Grid>
         </Border>

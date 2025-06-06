@@ -16,7 +16,6 @@ public partial class MainViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(BorrowIsActive))]
     [NotifyPropertyChangedFor(nameof(ReturnIsActive))]
     [NotifyPropertyChangedFor(nameof(SearchIsActive))]
-    [NotifyPropertyChangedFor(nameof(ReportsIsActive))]
     private PageViewModel _currentPage;
     
     public bool HomeIsActive => CurrentPage.PageName == ApplicationPageNames.Dashboard;
@@ -25,7 +24,6 @@ public partial class MainViewModel : ViewModelBase
     public bool BorrowIsActive => CurrentPage.PageName == ApplicationPageNames.Borrow;
     public bool ReturnIsActive => CurrentPage.PageName == ApplicationPageNames.Return;
     public bool SearchIsActive => CurrentPage.PageName == ApplicationPageNames.Search;
-    public bool ReportsIsActive => CurrentPage.PageName == ApplicationPageNames.Reports;
     
     public MainViewModel(PageFactory pageFactory)
     {

@@ -25,23 +25,33 @@
             <TextBox Watermark="Kraj" Text="{Binding SelectedReader.Country, Mode=TwoWay}" />
 
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
-                <Button Content="Dodaj" Command="{Binding AddReaderCommand}" />
-                <Button Content="Aktualizuj" Command="{Binding UpdateReaderCommand}" />
-                <Button Content="Usuń" Command="{Binding DeleteReaderCommand}" />
+                <Button Content="Dodaj" Command="{Binding AddReaderCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
+                <Button Content="Aktualizuj" Command="{Binding UpdateReaderCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
+                <Button Content="Usuń" Command="{Binding DeleteReaderCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
             </StackPanel>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Readers}" SelectedItem="{Binding SelectedReader}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Spacing="15">
-                        <TextBlock Text="{Binding FirstName}" Width="120" />
-                        <TextBlock Text="{Binding LastName}" Width="120" />
-                        <TextBlock Text="{Binding Email}" Width="200" />
-                        <TextBlock Text="{Binding Country}" Width="120" />
-                        <TextBlock Text="{Binding CreateAt, StringFormat='yyyy-MM-dd'}" Width="100" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <!-- Nagłówki i lista czytelników w jednym kontenerze -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,5">
+                <TextBlock Text="Imię" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Nazwisko" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Email" Width="200" FontWeight="Bold" />
+                <TextBlock Text="Kraj" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Data dodania" Width="100" FontWeight="Bold" />
+            </StackPanel>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Readers}" SelectedItem="{Binding SelectedReader}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding FirstName}" Width="120" />
+                            <TextBlock Text="{Binding LastName}" Width="120" />
+                            <TextBlock Text="{Binding Email}" Width="200" />
+                            <TextBlock Text="{Binding Country}" Width="120" />
+                            <TextBlock Text="{Binding CreateAt, StringFormat='yyyy-MM-dd'}" Width="100" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

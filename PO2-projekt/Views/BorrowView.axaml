@@ -27,7 +27,6 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-            <TextBlock Foreground="Red" FontSize="12" Text="{Binding BookError}" IsVisible="{Binding BookError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
 
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <TextBox Watermark="Szukaj użytkownika..." Text="{Binding ReaderFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Margin="0,0,0,5" />
@@ -42,35 +41,45 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-            <TextBlock Foreground="Red" FontSize="12" Text="{Binding ReaderError}" IsVisible="{Binding ReaderError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
 
             <DatePicker SelectedDate="{Binding SelectedBorrowing.ReturnDate, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" />
 
             <StackPanel Orientation="Horizontal" Spacing="10" Margin="0 15">
-                <Button Content="Dodaj" Command="{Binding AddBorrowingCommand}" />
-                <Button Content="Aktualizuj" Command="{Binding UpdateBorrowingCommand}" />
-                <Button Content="Usuń" Command="{Binding DeleteBorrowingCommand}" />
+                <Button Content="Dodaj" Command="{Binding AddBorrowingCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
+                <Button Content="Aktualizuj" Command="{Binding UpdateBorrowingCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
+                <Button Content="Usuń" Command="{Binding DeleteBorrowingCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
             </StackPanel>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Borrowings}" SelectedItem="{Binding SelectedBorrowing}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Spacing="15">
-                        <TextBlock Text="{Binding Book.Title}" Width="200" />
-                        <TextBlock Width="200">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="User.FirstName"/>
-                                    <Binding Path="User.LastName"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                        <TextBlock Text="{Binding BorrowDate, StringFormat='yyyy-MM-dd'}" Width="120" />
-                        <TextBlock Text="{Binding ReturnDate, StringFormat='yyyy-MM-dd'}" Width="120" />
-                        <TextBlock Text="{Binding Returned}" Width="80" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,5">
+                <TextBlock Text="Tytuł książki" Width="200" FontWeight="Bold" />
+                <TextBlock Text="Czytelnik" Width="200" FontWeight="Bold" />
+                <TextBlock Text="Data wypożyczenia" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Do zwrotu do" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Data zwrotu" Width="120" FontWeight="Bold" />
+                <TextBlock Text="Zwrócono" Width="80" FontWeight="Bold" />
+            </StackPanel>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Borrowings}" SelectedItem="{Binding SelectedBorrowing}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding Book.Title}" Width="200" />
+                            <TextBlock Width="200">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="User.FirstName"/>
+                                        <Binding Path="User.LastName"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Text="{Binding BorrowDate, StringFormat='yyyy-MM-dd'}" Width="120" />
+                            <TextBlock Text="{Binding DueDate, StringFormat='yyyy-MM-dd'}" Width="120" />
+                            <TextBlock Text="{Binding ReturnDate, StringFormat='yyyy-MM-dd'}" Width="120" />
+                            <TextBlock Text="{Binding Returned}" Width="80" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

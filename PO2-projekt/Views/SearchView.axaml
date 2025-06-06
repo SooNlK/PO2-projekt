@@ -24,22 +24,29 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <CheckBox Content="Tylko dostępne" IsChecked="{Binding OnlyAvailable, Mode=TwoWay}" />
-                <Button Content="Szukaj" Command="{Binding SearchCommand}" />
-                <Button Content="Wyczyść filtry" Command="{Binding ClearFiltersCommand}" />
+                <Button Content="Szukaj" Command="{Binding SearchCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
+                <Button Content="Wyczyść filtry" Command="{Binding ClearFiltersCommand}" Background="{DynamicResource PrimaryButtonBackground}" />
             </StackPanel>
-            <ListBox ItemsSource="{Binding SearchResults}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="15">
-                            <TextBlock Text="{Binding Title}" Width="200" />
-                            <TextBlock Width="200" Text="{Binding BookAuthors, Converter={StaticResource AuthorsToStringConverter}}" />
-                            <TextBlock Text="{Binding Category.Name}" Width="120" />
-                            <TextBlock Text="{Binding Copies}" Width="60" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid RowDefinitions="Auto,*">
+                <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,0,5">
+                    <TextBlock Text="Tytuł" Width="200" FontWeight="Bold" />
+                    <TextBlock Text="Autorzy" Width="200" FontWeight="Bold" />
+                    <TextBlock Text="Kategoria" Width="120" FontWeight="Bold" />
+                    <TextBlock Text="Kopie" Width="60" FontWeight="Bold" />
+                </StackPanel>
+                <ListBox Grid.Row="1" ItemsSource="{Binding SearchResults}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="15">
+                                <TextBlock Text="{Binding Title}" Width="200" />
+                                <TextBlock Width="200" Text="{Binding BookAuthors, Converter={StaticResource AuthorsToStringConverter}}" />
+                                <TextBlock Text="{Binding Category.Name}" Width="120" />
+                                <TextBlock Text="{Binding Copies}" Width="60" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

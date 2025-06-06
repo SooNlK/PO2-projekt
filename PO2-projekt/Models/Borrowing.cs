@@ -21,6 +21,8 @@ namespace PO2_projekt.Models
 
         public DateTime? ReturnDate { get; set; }
 
+        public DateTime DueDate { get; set; }
+
         public bool Returned { get; set; } = false;
     }
 }

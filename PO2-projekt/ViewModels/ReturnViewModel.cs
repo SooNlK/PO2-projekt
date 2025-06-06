@@ -15,7 +15,7 @@ public partial class ReturnViewModel : PageViewModel
 {
     private readonly LibraryDbContext _context;
     public ObservableCollection<Borrowing> ActiveBorrowings { get; } = new();
-    [ObservableProperty] private Borrowing _selectedBorrowing;
+    [ObservableProperty] private BorrowingViewModel _selectedBorrowing;
 
     // Nowe właściwości do filtrowania i wyszukiwania
     [ObservableProperty] private string _searchText;
@@ -105,9 +105,8 @@ public partial class ReturnViewModel : PageViewModel
             borrowing.Returned = true;
             borrowing.ReturnDate = DateTime.UtcNow;
             await _context.SaveChangesAsync();
-            ActiveBorrowings.Remove(SelectedBorrowing);
+            await LoadActiveBorrowingsAsync();
             SelectedBorrowing = null;
-            UpdateFiltered();
         }
     }
 
@@ -122,13 +121,14 @@ public partial class ReturnViewModel : PageViewModel
         public int UserId => _borrowing.User?.Id ?? 0;
         public DateTime BorrowDate => _borrowing.BorrowDate;
         public DateTime? ReturnDate => _borrowing.ReturnDate;
-        public bool IsOverdue => (_borrowing.ReturnDate.HasValue && _borrowing.ReturnDate.Value < DateTime.UtcNow);
+        public DateTime DueDate => _borrowing.DueDate;
+        public bool IsOverdue => !_borrowing.Returned && _borrowing.DueDate < DateTime.UtcNow;
         public string DaysLateText
         {
             get
             {
-                if (!IsOverdue || !_borrowing.ReturnDate.HasValue) return "";
-                var days = (DateTime.UtcNow - _borrowing.ReturnDate.Value).Days;
+                if (!IsOverdue) return "";
+                var days = (DateTime.UtcNow - _borrowing.DueDate).Days;
                 return $"+{days} dni";
             }
         }

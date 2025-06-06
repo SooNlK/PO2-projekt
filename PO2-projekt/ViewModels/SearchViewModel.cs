@@ -23,7 +23,6 @@ public partial class SearchViewModel : PageViewModel
     [ObservableProperty] private string _searchTitle;
     [ObservableProperty] private string _searchAuthor;
     [ObservableProperty] private Category _searchCategory;
-    [ObservableProperty] private bool _onlyAvailable;
     [ObservableProperty] private BookStatusFilter _bookStatus = BookStatusFilter.All;
     public ObservableCollection<Category> Categories { get; } = new();
     public ObservableCollection<Book> SearchResults { get; } = new();
@@ -65,8 +64,6 @@ public partial class SearchViewModel : PageViewModel
             query = query.Where(b => b.BookAuthors.Any(ba => (ba.Author.FirstName + " " + ba.Author.LastName).ToLower().Contains(SearchAuthor.ToLower())));
         if (SearchCategory != null)
             query = query.Where(b => b.CategoryId == SearchCategory.Id);
-        if (OnlyAvailable)
-            query = query.Where(b => b.Copies > 0);
         if (BookStatus == BookStatusFilter.Borrowed)
             query = query.Where(b => b.Borrowings.Any(br => !br.Returned));
         else if (BookStatus == BookStatusFilter.Available)
@@ -84,7 +81,6 @@ public partial class SearchViewModel : PageViewModel
         SearchTitle = string.Empty;
         SearchAuthor = string.Empty;
         SearchCategory = null;
-        OnlyAvailable = false;
         BookStatus = BookStatusFilter.All;
         await SearchAsync();
     }

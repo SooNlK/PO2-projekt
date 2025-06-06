@@ -44,9 +44,10 @@ public partial class AddMemberViewModel : PageViewModel, INotifyDataErrorInfo
         Validate();
         if (HasErrors) return;
         if (SelectedReader.Id != 0) return;
+        SelectedReader.CreateAt = DateTime.UtcNow;
         _context.Readers.Add(SelectedReader);
         await _context.SaveChangesAsync();
-        Readers.Add(SelectedReader);
+        await LoadReadersAsync();
         SelectedReader = new Reader();
     }
 
@@ -64,10 +65,22 @@ public partial class AddMemberViewModel : PageViewModel, INotifyDataErrorInfo
     private async Task DeleteReaderAsync()
     {
         if (SelectedReader?.Id == 0) return;
-        _context.Readers.Remove(SelectedReader);
-        await _context.SaveChangesAsync();
-        Readers.Remove(SelectedReader);
-        SelectedReader = new Reader();
+        // Sprawdź, czy czytelnik ma aktywne wypożyczenia
+        var hasActiveBorrowings = await _context.Borrowings.AnyAsync(b => b.UserId == SelectedReader.Id && !b.Returned);
+        if (hasActiveBorrowings)
+        {
+            _errors[nameof(SelectedReader)] = "Nie można usunąć użytkownika, który ma wypożyczoną książkę.";
+            OnErrorsChanged(nameof(SelectedReader));
+            return;
+        }
+        var reader = await _context.Readers.FindAsync(SelectedReader.Id);
+        if (reader != null)
+        {
+            _context.Readers.Remove(reader);
+            await _context.SaveChangesAsync();
+            await LoadReadersAsync();
+            SelectedReader = new Reader();
+        }
     }
 
     #region Walidacja
