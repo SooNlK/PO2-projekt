@@ -55,7 +55,4 @@ public partial class MainViewModel : ViewModelBase
             await svm.InitializeAsync();
         CurrentPage = vm;
     }
-    
-    [RelayCommand]
-    private void GoToReports() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageNames.Reports);
 }

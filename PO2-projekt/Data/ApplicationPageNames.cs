@@ -8,6 +8,5 @@ public enum ApplicationPageNames
     AddMember,
     Borrow,
     Return,
-    Search,
-    Reports
+    Search
 }
