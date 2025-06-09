@@ -6,7 +6,7 @@ Aplikacja desktopowa do zarządzania biblioteką, napisana w technologii .NET (A
 
 ## Baza danych
 
-(baza.png)
+![Diagram ERD](baza.png)
 
 ## Wymagania
 
