@@ -4,6 +4,10 @@
 
 Aplikacja desktopowa do zarządzania biblioteką, napisana w technologii .NET (Avalonia UI) z wykorzystaniem Entity Framework Core oraz bazy danych PostgreSQL. Pozwala na zarządzanie książkami, autorami, kategoriami, czytelnikami, wypożyczeniami oraz rezerwacjami. Projekt zawiera przykładowe dane (seed) dla łatwiejszego testowania funkcjonalności.
 
+## Baza danych
+
+(baza.png)
+
 ## Wymagania
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
