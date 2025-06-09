@@ -7,7 +7,7 @@ Aplikacja desktopowa do zarządzania biblioteką, napisana w technologii .NET (A
 ## Wymagania
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
-- [PostgreSQL](https://www.postgresql.org/) (domyślnie: `localhost:5432`, baza: `LibraryDB`, użytkownik: `postgres`, hasło: `Dabrowski08`)
+- [PostgreSQL](https://www.postgresql.org/) (domyślnie: `localhost:5432`, baza: `LibraryDB`, użytkownik: `postgres`, hasło: `haslo`)
 - System operacyjny: Windows, Linux lub macOS
 
 ## Instalacja i uruchomienie
