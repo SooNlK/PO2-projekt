@@ -47,7 +47,7 @@ Połączenie do bazy danych znajduje się w pliku `appsettings.json`:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=LibraryDB;Username=postgres;Password=Dabrowski08"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=LibraryDB;Username=postgres;Password=password"
   }
 }
 ```
